@@ -1,0 +1,15 @@
+'use strict'
+
+const BRAILLE_DOT_SIZE = 4
+const BRAILLE_PATTERN_HEIGHT = 24
+const BRAILLE_PATTERN_WIDTH = 0.5 * BRAILLE_PATTERN_HEIGHT
+const BRAILLE_CANVAS_HEIGHT = 400 // 16 * BRAILLE_PATTERN_HEIGHT
+const BRAILLE_CANVAS_WIDTH = 200 // 16 * BRAILLE_PATTERN_WIDTH
+
+function paintBraille(con) {
+    con.fillStyle = '#2E3440'
+    con.fillRect(0, 0, BRAILLE_CANVAS_WIDTH, BRAILLE_CANVAS_HEIGHT)
+}
+
+function drawBraillePattern() {
+}
