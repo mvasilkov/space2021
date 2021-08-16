@@ -1,10 +1,9 @@
 'use strict'
 
-const BRAILLE_DOT_SIZE = 2
+const BRAILLE_DOT_SIZE = 4
 const BRAILLE_PATTERN_HEIGHT = 24
 const BRAILLE_PATTERN_WIDTH = 0.5 * BRAILLE_PATTERN_HEIGHT
 const BRAILLE_PATTERN_SPACING = 0.5 * BRAILLE_PATTERN_WIDTH
-const BRAILLE_PATTERN_PADDING = 0.5 * BRAILLE_PATTERN_SPACING
 const BRAILLE_CANVAS_HEIGHT = 400 // 16 * BRAILLE_PATTERN_HEIGHT
 const BRAILLE_CANVAS_WIDTH = 200 // 16 * BRAILLE_PATTERN_WIDTH
 
@@ -18,8 +17,6 @@ const BRAILLE_DOT_POS = [
     [0, 3],
     [1, 3],
 ]
-
-const MATH_2PI = 2 * Math.PI
 
 function paintBraille(con) {
     con.fillStyle = '#2E3440'
@@ -45,10 +42,10 @@ function paintBraille(con) {
 function drawBraillePattern(con, x0, y0, p) {
     for (let n = 0; n < 8; ++n) {
         if (p & 0b1 === 1) {
-            const x = x0 + BRAILLE_DOT_POS[n][0] * BRAILLE_PATTERN_SPACING + BRAILLE_PATTERN_PADDING
-            const y = y0 + BRAILLE_DOT_POS[n][1] * BRAILLE_PATTERN_SPACING + BRAILLE_PATTERN_PADDING
-            con.moveTo(x, y)
-            con.arc(x, y, BRAILLE_DOT_SIZE, 0, MATH_2PI)
+            const x = x0 + BRAILLE_DOT_POS[n][0] * BRAILLE_PATTERN_SPACING
+            const y = y0 + BRAILLE_DOT_POS[n][1] * BRAILLE_PATTERN_SPACING
+            // con.moveTo(x, y)
+            con.rect(x, y, BRAILLE_DOT_SIZE, BRAILLE_DOT_SIZE)
         }
         p = p >>> 1
     }
