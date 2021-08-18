@@ -4,7 +4,7 @@
  */
 'use strict'
 /** Mulberry32 PRNG class */
-export class Mulberry32 {
+class Mulberry32 {
     constructor(seed) {
         this.state = seed | 0
     }
