@@ -18,7 +18,7 @@ const BRAILLE_DOT_POS = [
     [1, 3],
 ]
 
-function paintBraille(con) {
+function paintBrailleInit(con) {
     con.fillStyle = '#2E3440'
     con.fillRect(0, 0, BRAILLE_CANVAS_WIDTH, BRAILLE_CANVAS_HEIGHT)
 
@@ -48,5 +48,26 @@ function drawBraillePattern(con, x0, y0, p) {
             con.rect(x, y, BRAILLE_DOT_SIZE, BRAILLE_DOT_SIZE)
         }
         p = p >>> 1
+    }
+}
+
+function paintBraille(con, canvasBraille, x0, y0, table) {
+    for (let y = 0; y < table.length; ++y) {
+        const line = table[y]
+        for (let x = 0; x < line.length; ++x) {
+            const char = line[x]
+            const bx = char & 0b1111
+            const by = (char >>> 4) & 0b1111
+            con.drawImage(canvasBraille,
+                BRAILLE_PATTERN_WIDTH * bx,
+                BRAILLE_PATTERN_HEIGHT * by,
+                BRAILLE_PATTERN_WIDTH,
+                BRAILLE_PATTERN_HEIGHT,
+                x0 + BRAILLE_PATTERN_WIDTH * x,
+                y0 + BRAILLE_PATTERN_HEIGHT * y,
+                BRAILLE_PATTERN_WIDTH,
+                BRAILLE_PATTERN_HEIGHT,
+            )
+        }
     }
 }
