@@ -1,5 +1,36 @@
 @charset "utf-8";
 
+body {
+    font-family: -apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif;
+}
+
+canvas {
+    display: block;
+}
+
+#all {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#p1 {
+    background-color: #D8DEE9;
+    height: 540px;
+    width: 540px;
+}
+
+#p2 {
+    background-color: #E5E9F0;
+    height: 540px;
+    width: 540px;
+}
+
+#a {
+    height: 540px;
+    width: 540px;
+}
+
 #b {
     height: 200px;
     width: 100px;
