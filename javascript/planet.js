@@ -22,6 +22,8 @@
 const Planet = function () {
     // braille
 
+    const enc = x => (x & 0x08) << 3 | (x & 0x70) >> 1 | (x & 0x87) // | 0x2800
+
     const create = (width, height) =>
         Array.from(Array(height >> 2), () => new Uint8Array(width >> 1));
 
@@ -84,6 +86,15 @@ const Planet = function () {
                     const u = 2 * x / width - 1;
                     if (globe(x, y, u, v, time))
                         set(pixels, x, y);
+                }
+            }
+
+            // encode
+
+            for (let y = 0; y < pixels.length; ++y) {
+                const line = pixels[y]
+                for (let x = 0; x < line.length; ++x) {
+                    line[x] = enc(line[x])
                 }
             }
 
