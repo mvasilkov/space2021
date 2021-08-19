@@ -4,8 +4,8 @@ const TOTAL_CANNONS = 12
 const CANNON_BUILD_TIME = 50 // ticks, 1 second = 50 ticks
 const CANNON_RELOAD_TIME = 100
 
-const GAME_CANVAS_HEIGHT = 540
-const GAME_CANVAS_WIDTH = 540
+const GAME_CANVAS_HEIGHT = 1080
+const GAME_CANVAS_WIDTH = 1080
 
 const FONTS = `-apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif`
 
