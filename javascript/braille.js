@@ -51,11 +51,11 @@ function drawBraillePattern(con, x0, y0, p) {
     }
 }
 
-function paintBraille(con, canvasBraille, x0, y0, table) {
+function paintBraille(con, canvasBraille, x0, y0, table, enc) {
     for (let y = 0; y < table.length; ++y) {
         const line = table[y]
         for (let x = 0; x < line.length; ++x) {
-            const char = line[x]
+            const char = enc(line[x])
             const bx = char & 0b1111
             const by = (char >>> 4) & 0b1111
             con.drawImage(canvasBraille,
