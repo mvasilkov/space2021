@@ -1,11 +1,18 @@
 'use strict'
 
+function update() {
+}
+
+function render() {
+    paintBraille(cons.a, canvases.b, 0, 0, state.planet.render(), state.planet.enc)
+}
+
 function run() {
     paintBrailleInit(cons.b)
+
     resetState()
 
-    const p = new Planet(Math, 100, 100)
-    paintBraille(cons.a, canvases.b, 0, 0, p.render(), p.enc)
+    startMainloop(update, render)
 }
 
 run()
