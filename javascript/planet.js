@@ -79,7 +79,7 @@ const Planet = function () {
         const pixels = create(width, height)
 
         this.render = function render() {
-            const time = 1e-3 * Date.now()
+            const time = 9e-4 * Date.now()
 
             for (let y = 0; y < pixels.length; ++y) {
                 const line = pixels[y]
