@@ -4,6 +4,8 @@ const TOTAL_CANNONS = 12
 const CANNON_BUILD_TIME = 50 // ticks, 1 second = 50 ticks
 const CANNON_RELOAD_TIME = 100
 
+const TOTAL_INVADERS = 16
+
 const GAME_CANVAS_HEIGHT = 1080
 const GAME_CANVAS_WIDTH = 1080
 
