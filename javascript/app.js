@@ -3,8 +3,10 @@
 function update() {
 }
 
-function render() {
+function render(t) {
     paintBraille(cons.a, canvases.b, 0, 0, state.planet.render(), state.planet.enc)
+
+    renderInvaders(state.invaders, cons.a, t)
 }
 
 function run() {
