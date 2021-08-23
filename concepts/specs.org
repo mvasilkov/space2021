@@ -1,0 +1,4 @@
+* Graphics
+** Square screen, 540 by 540 CSS pixels, 1080 by 1080 actual resolution
+** Color Palette: https://lospec.com/palette-list/blk-neo
+** (Optional) 1-bit palette: https://lospec.com/palette-list/1bit-monitor-glow
