@@ -26,3 +26,9 @@ canvases.a.width = GAME_CANVAS_WIDTH
 
 canvases.b.height = BRAILLE_CANVAS_HEIGHT
 canvases.b.width = BRAILLE_CANVAS_WIDTH
+
+// Utility functions
+
+function lerp(a, b, t) {
+    return a * (1 - t) + b * t
+}
