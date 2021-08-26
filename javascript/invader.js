@@ -36,6 +36,21 @@ function renderInvaders(invaders, con, t) {
 
     con.closePath()
 
+    con.lineWidth = 2
     con.strokeStyle = '#ff0080'
     con.stroke()
+}
+
+// Random walk: choose a direction, go 4 units in that direction
+function brownianMotion(invaders) {
+    for (let n = 0; n < TOTAL_INVADERS; ++n) {
+        if (invaders[n].job === INVADER_MISSING) continue
+
+        const subj = invaders[n]
+        const angle = Math.random() * 2 * Math.PI
+
+        subj.lastPos.copy(subj.pos)
+        subj.pos.x += 4 * Math.cos(angle)
+        subj.pos.y += 4 * Math.sin(angle)
+    }
 }
