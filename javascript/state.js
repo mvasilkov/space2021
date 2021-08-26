@@ -17,5 +17,8 @@ function resetState() {
 
     for (let n = 0; n < TOTAL_INVADERS; ++n) {
         state.invaders[n] = new Invader
+
+        // This will happen later in the actual game
+        state.invaders[n].initialize()
     }
 }
