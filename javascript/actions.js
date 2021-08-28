@@ -4,11 +4,11 @@ const actions = {
     start() {
     },
     build() {
-        for (let n = 0; n < TOTAL_CANNONS; ++n) {
-            const cannon = state.cannons[n]
+        for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
+            const pl = state.defenses[n]
 
-            if (cannon.job === CANNON_MISSING) {
-                cannon.build()
+            if (pl.job === PLATFORM_MISSING) {
+                pl.build()
                 break
             }
         }

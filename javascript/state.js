@@ -7,10 +7,10 @@ function resetState() {
 
     state.planet = new Planet(Math, 100, 100)
 
-    state.cannons = Array(TOTAL_CANNONS)
+    state.defenses = Array(TOTAL_PLATFORMS)
 
-    for (let n = 0; n < TOTAL_CANNONS; ++n) {
-        state.cannons[n] = new Cannon
+    for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
+        state.defenses[n] = new DefensePl
     }
 
     state.invaders = Array(TOTAL_INVADERS)
