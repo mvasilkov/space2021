@@ -9,7 +9,7 @@ function render(t) {
 
     paintBraille(cons.a, canvases.b, 0, 0, state.planet.render(), state.planet.enc)
 
-    renderCannons(state.cannons, cons.a, t)
+    renderDefenses(state.defenses, cons.a, t)
 
     renderInvaders(state.invaders, cons.a, t)
 }
