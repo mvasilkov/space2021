@@ -57,10 +57,29 @@ class DefensePl {
     }
 }
 
+function updateDefenses(defenses) {
+    state.lastRotation = state.rotation
+    if (++state.rotation === PLATFORM_ROTATE_TIME) {
+        state.rotation = 0
+    }
+
+    for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
+        const pl = defenses[n]
+
+        pl.update()
+    }
+}
+
 /** Batch render all defenses */
 function renderDefenses(defenses, con, t) {
+    const rotation = lerp(
+        state.lastRotation,
+        state.rotation + (state.rotation < state.lastRotation ? PLATFORM_ROTATE_TIME : 0),
+        t)
+
     con.save()
     con.translate(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_WIDTH)
+    con.rotate(2 * Math.PI * rotation / PLATFORM_ROTATE_TIME)
 
     con.beginPath()
 

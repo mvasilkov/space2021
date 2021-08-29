@@ -23,6 +23,9 @@ function resetState() {
         state.defenses[n] = pl
     }
 
+    state.rotation = 0
+    state.lastRotation = 0
+
     state.invaders = Array(TOTAL_INVADERS)
 
     for (let n = 0; n < TOTAL_INVADERS; ++n) {
