@@ -1,6 +1,8 @@
 'use strict'
 
 function update() {
+    updateDefenses(state.defenses)
+
     brownianMotion(state.invaders)
 }
 

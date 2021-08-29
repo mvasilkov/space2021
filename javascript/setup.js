@@ -2,7 +2,9 @@
 
 const TOTAL_PLATFORMS = 12
 const PLATFORM_BUILD_TIME = 50 // ticks, 1 second = 50 ticks
-const PLATFORM_RELOAD_TIME = 100
+const PLATFORM_ROTATE_TIME = 1991
+
+const CANNON_RELOAD_TIME = 100
 
 const TOTAL_INVADERS = 16
 
