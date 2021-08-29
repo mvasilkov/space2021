@@ -9,8 +9,18 @@ function resetState() {
 
     state.defenses = Array(TOTAL_PLATFORMS)
 
+    state.cannons = Array(4 * TOTAL_PLATFORMS)
+
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
-        state.defenses[n] = new DefensePl
+        const pl = new DefensePl(n)
+
+        for (let cn = 0; cn < 4; ++cn) {
+            const can = new Cannon(pl, cn)
+
+            pl.cannons.push(state.cannons[4 * n + cn] = can)
+        }
+
+        state.defenses[n] = pl
     }
 
     state.invaders = Array(TOTAL_INVADERS)
