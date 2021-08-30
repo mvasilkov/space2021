@@ -16,13 +16,14 @@ class DefensePl {
         this.cannons = []
         this.n = n
 
-        this._changeJob(PLATFORM_MISSING)
+        this._changeJob(PLATFORM_MISSING, 0)
     }
 
-    _changeJob(job) {
+    _changeJob(job, level) {
         this.job = job
         this.progress = 0
         this.lastProgress = 0
+        this.level = level
     }
 
     build() {
@@ -33,7 +34,7 @@ class DefensePl {
         switch (this.job) {
             case PLATFORM_BUILDING:
                 if (this.progress === PLATFORM_BUILD_TIME) {
-                    this._changeJob(PLATFORM_READY)
+                    this._changeJob(PLATFORM_READY, 1)
                     this.cannons[0]._changeJob(CANNON_READY)
                 }
                 else {
@@ -97,5 +98,5 @@ function renderDefenses(defenses, con, t) {
     con.strokeStyle = '#0080ff'
     con.stroke()
 
-    con.restore()
+    // con.restore() -- this happens in renderCannons
 }
