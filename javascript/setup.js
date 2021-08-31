@@ -17,11 +17,13 @@ const FONTS = `-apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif`
 const canvases = {
     a: document.getElementById('a'),
     b: document.getElementById('b'),
+    s: document.getElementById('s'),
 }
 
 const cons = {
     a: canvases.a.getContext('2d'),
     b: canvases.b.getContext('2d'),
+    s: canvases.s.getContext('2d'),
 }
 
 canvases.a.height = GAME_CANVAS_HEIGHT
@@ -29,6 +31,9 @@ canvases.a.width = GAME_CANVAS_WIDTH
 
 canvases.b.height = BRAILLE_CANVAS_HEIGHT
 canvases.b.width = BRAILLE_CANVAS_WIDTH
+
+canvases.s.height = GAME_CANVAS_HEIGHT
+canvases.s.width = GAME_CANVAS_WIDTH
 
 // Utility functions
 

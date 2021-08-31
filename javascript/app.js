@@ -23,6 +23,8 @@ function render(t) {
 function run() {
     initActions()
 
+    paintBackground(cons.s) // the background is static, so this should not be in render()
+
     paintBrailleInit(cons.b)
 
     resetState()
