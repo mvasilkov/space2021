@@ -6,6 +6,8 @@ const PLATFORM_UPGRADING = 2
 const PLATFORM_READY = 3
 const PLATFORM_RECYCLING = 4
 
+const PLATFORM_TOP_LEVEL = 4
+
 // Rendering constants
 const PLATFORM_ALTITUDE = 300
 const PLATFORM_ANGULAR_WIDTH = 2 * Math.PI / TOTAL_PLATFORMS
@@ -27,7 +29,11 @@ class DefensePl {
     }
 
     build() {
-        this._changeJob(PLATFORM_BUILDING)
+        this._changeJob(PLATFORM_BUILDING, 0)
+    }
+
+    upgrade() {
+        this._changeJob(PLATFORM_UPGRADING, this.level)
     }
 
     update() {
@@ -35,7 +41,23 @@ class DefensePl {
             case PLATFORM_BUILDING:
                 if (this.progress === PLATFORM_BUILD_TIME) {
                     this._changeJob(PLATFORM_READY, 1)
-                    this.cannons[0]._changeJob(CANNON_READY)
+                    this.cannons[0]._changeJob(CANNON_READY) // can rewrite to [this.level - 1]
+                }
+                else {
+                    ++this.progress
+                }
+                break
+
+            case PLATFORM_UPGRADING:
+                if (this.progress === PLATFORM_UPGRADE_TIME) {
+                    this._changeJob(PLATFORM_READY, 2 * this.level)
+                    if (this.level === 2) {
+                        this.cannons[1]._changeJob(CANNON_READY) // can rewrite to [this.level - 1]
+                    }
+                    else { // this.level === PLATFORM_TOP_LEVEL
+                        this.cannons[2]._changeJob(CANNON_READY)
+                        this.cannons[3]._changeJob(CANNON_READY)
+                    }
                 }
                 else {
                     ++this.progress
