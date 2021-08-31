@@ -26,8 +26,9 @@ canvas {
     width: 540px;
 }
 
-#a {
+#a, #s {
     height: 540px;
+    position: absolute; /* stack #a on top of #s */
     width: 540px;
 }
 
