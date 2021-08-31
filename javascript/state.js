@@ -14,10 +14,10 @@ function resetState() {
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = new DefensePl(n)
 
-        for (let cn = 0; cn < 4; ++cn) {
+        for (let cn = 0; cn < PLATFORM_TOP_LEVEL; ++cn) {
             const can = new Cannon(pl, cn)
 
-            pl.cannons.push(state.cannons[4 * n + cn] = can)
+            pl.cannons.push(state.cannons[PLATFORM_TOP_LEVEL * n + cn] = can)
         }
 
         state.defenses[n] = pl
