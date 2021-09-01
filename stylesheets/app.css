@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 body {
+    background: #bbb;
     font-family: -apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif;
 }
 
@@ -35,4 +36,22 @@ canvas {
 #b {
     height: 200px;
     width: 100px;
+}
+
+#news {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 540px;
+    position: absolute;
+    width: 540px;
+}
+
+.h1 {
+    background: #fff;
+    color: #101010;
+}
+
+.h2 {
+    background: #c00000;
+    color: #fff;
 }
