@@ -4,15 +4,18 @@
 ** (Optional) 1-bit palette: https://lospec.com/palette-list/1bit-monitor-glow
 
 * Economy
-** Start with 5
-** Platforms cost 4, 8, 16, 32, 64... powers of 2
-** Each shot costs 1
-*** This never prevents from shooting, just goes into negative if needed
-** Each kill gives 3
+** Start with 2
+** Platforms cost 2, 4, 8, 16, 32, 64 ... 4096 (powers of 2)
+** Each shot costs 0
+** Each kill gives 1
 ** So the bank at the start of the game is as follows:
-   - New game                   5
-   - Build a platform           1
-   - First shot                 0
-   - (The shot connects)        3
-   - Continue shooting          5, 7, 9
-   - Build the second platform  1
+   - New game                    2
+   - Build a platform            0
+   - First shot                  1
+   - Continue shooting           2, 3, 4
+   - Build the second platform   0
+   - Shooting 2 at once          2, 4, 6, 8
+   - Build the third platform    0
+** Upgrade (capacity) opens after 3rd platform
+** Upgrade (capacity) costs 8, 16, 32, 64 ... 16384 ... 67108864 (powers of 2)
+*** There are 2 upgrades (capacity) for each platform
