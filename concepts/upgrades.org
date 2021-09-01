@@ -1,0 +1,21 @@
+* Upgrades
+  - Superfluid ion thrusters
+    Rockets accelerate 2x faster
+
+  - Muzzle booster reloading
+    Cannons reload 2x faster
+
+* Auto-fire upgrades
+  - Cybernetic command
+    Fire up to 2 cannons every second
+
+  - Strong AI hypothesis
+    Fire up to 4 cannons every second
+
+  - AI Supremacy
+    Fire up to 8 cannons every second
+
+  - AI recursive self-improvement
+    Fire all cannons on cooldown
+
+* Economy upgrades
