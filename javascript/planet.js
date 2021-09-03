@@ -25,7 +25,7 @@ const Planet = function () {
     const enc = x => (x & 0x08) << 3 | (x & 0x70) >> 1 | (x & 0x87) // | 0x2800
 
     const create = (width, height) =>
-        Array.from(Array(height >> 2), () => new Uint8Array(width >> 1))
+        Array.from(Array((height >> 2) + 1), () => new Uint8Array((width >> 1) + 1))
 
     const set = (table, x, y) =>
         table[y >> 2][x >> 1] |= 1 << ((y & 3) | (x & 1) << 2)
@@ -76,7 +76,13 @@ const Planet = function () {
             return t > bayer4(x, y)
         }
 
-        const pixels = create(width, height)
+        let pixels = create(width, height)
+
+        this.resize = function resize(toWidth, toHeight) {
+            if (toWidth === width && toHeight === height) return
+
+            pixels = create(width = toWidth, height = toHeight)
+        }
 
         this.render = function render() {
             const time = 9e-4 * Date.now()

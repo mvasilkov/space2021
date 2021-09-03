@@ -2,6 +2,7 @@
 
 const actions = {
     start() {
+        advancePhase(GAME_STARTING)
     },
     build() {
         // TODO start at 12:00 and search clockwise
