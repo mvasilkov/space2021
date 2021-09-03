@@ -1,11 +1,14 @@
 'use strict'
 
-
-let stars = []
+const TOTAL_STARS = 150
 const STAR_POWER = 5
+const STAR_LOWEST_RGB = 200
+
+const rndColor = () => Math.random() * (255 - STAR_LOWEST_RGB) + STAR_LOWEST_RGB
 
 class Star {
     constructor() {
+        this.color = `rgb(${rndColor()},${rndColor()},${rndColor()})`
         this.power = STAR_POWER * Math.random()
         this.pos = new Vec2(
             GAME_CANVAS_WIDTH * Math.random(),
@@ -13,27 +16,12 @@ class Star {
     }
 }
 
-
-function initStars() {
-    for (let i = 0; i < 100; i++) {
-        stars.push(new Star)
-    }
-}
-initStars()
-
-function paintBackground(con) {
-    con.fillStyle = '#000'
-
+function paintBackground(con, stars) {
+    con.fillStyle = PAL_BLACK
     con.fillRect(0, 0, GAME_CANVAS_WIDTH, GAME_CANVAS_HEIGHT)
-    const rndColor = () => Math.random() * (255 - 150) + 150
 
     for (let star of stars) {
-        con.fillStyle = `rgb(${rndColor()}, ${rndColor()}, ${rndColor()})`
-        con.fillRect(
-            star.pos.x,
-            star.pos.y,
-            star.power,
-            star.power
-        )
+        con.fillStyle = star.color
+        con.fillRect(star.pos.x, star.pos.y, star.power, star.power)
     }
 }

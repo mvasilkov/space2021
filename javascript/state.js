@@ -5,6 +5,12 @@ const state = {}
 function resetState() {
     state.funds = 0
 
+    state.stars = Array(TOTAL_STARS)
+
+    for (let n = 0; n < TOTAL_STARS; ++n) {
+        state.stars[n] = new Star
+    }
+
     state.planet = new Planet(Math, 100, 100)
 
     state.defenses = Array(TOTAL_PLATFORMS)
