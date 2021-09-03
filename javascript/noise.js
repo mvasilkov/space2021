@@ -1,6 +1,4 @@
-/* A fast JavaScript implementation of simplex noise by Jonas Wagner.
- *
- * Copyright (c) 2018 Jonas Wagner
+/* Copyright (c) 2018 Jonas Wagner
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +19,7 @@
  * SOFTWARE.
  */
 'use strict'
+/** A fast JavaScript implementation of simplex noise by Jonas Wagner. */
 const SimplexNoise = function () {
     const F3 = 1.0 / 3.0
     const G3 = 1.0 / 6.0

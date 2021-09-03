@@ -15,7 +15,7 @@ const PLATFORM_HEIGHT = 30
 
 class DefensePl {
     constructor(n) {
-        this.cannons = []
+        this.cannons = Array(PLATFORM_TOP_LEVEL)
         this.n = n
 
         this._changeJob(PLATFORM_MISSING, 0)

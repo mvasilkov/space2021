@@ -100,6 +100,6 @@ const Planet = function () {
             return pixels
         }
 
-        this.enc = enc
+        this.enc = enc // used in paintBraille
     }
 }()

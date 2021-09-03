@@ -9,7 +9,7 @@ function resetState() {
 
     state.defenses = Array(TOTAL_PLATFORMS)
 
-    state.cannons = Array(4 * TOTAL_PLATFORMS)
+    state.cannons = Array(PLATFORM_TOP_LEVEL * TOTAL_PLATFORMS)
 
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = new DefensePl(n)
@@ -17,12 +17,13 @@ function resetState() {
         for (let cn = 0; cn < PLATFORM_TOP_LEVEL; ++cn) {
             const can = new Cannon(pl, cn)
 
-            pl.cannons.push(state.cannons[PLATFORM_TOP_LEVEL * n + cn] = can)
+            pl.cannons[cn] = state.cannons[PLATFORM_TOP_LEVEL * n + cn] = can
         }
 
         state.defenses[n] = pl
     }
 
+    /** Defenses' rotation */
     state.rotation = 0
     state.lastRotation = 0
 

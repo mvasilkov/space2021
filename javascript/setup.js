@@ -15,25 +15,28 @@ const GAME_CANVAS_WIDTH = 1080
 const FONTS = `-apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif`
 
 const canvases = {
+    /** Main screen canvas */
     a: document.getElementById('a'),
+    /** Braille canvas */
     b: document.getElementById('b'),
+    /** Background canvas */
     s: document.getElementById('s'),
 }
 
 const cons = {
+    /** Main screen rendering context */
     a: canvases.a.getContext('2d'),
+    /** Braille rendering context */
     b: canvases.b.getContext('2d'),
+    /** Background rendering context */
     s: canvases.s.getContext('2d'),
 }
 
-canvases.a.height = GAME_CANVAS_HEIGHT
-canvases.a.width = GAME_CANVAS_WIDTH
+canvases.a.height = canvases.s.height = GAME_CANVAS_HEIGHT
+canvases.a.width = canvases.s.width = GAME_CANVAS_WIDTH
 
 canvases.b.height = BRAILLE_CANVAS_HEIGHT
 canvases.b.width = BRAILLE_CANVAS_WIDTH
-
-canvases.s.height = GAME_CANVAS_HEIGHT
-canvases.s.width = GAME_CANVAS_WIDTH
 
 // Utility functions
 
