@@ -39,6 +39,8 @@ class DefensePl {
     update() {
         switch (this.job) {
             case PLATFORM_BUILDING:
+                this.lastProgress = this.progress
+
                 if (this.progress === PLATFORM_BUILD_TIME) {
                     this._changeJob(PLATFORM_READY, 1)
                     this.cannons[0]._changeJob(CANNON_READY) // can rewrite to [this.level - 1]
@@ -49,6 +51,8 @@ class DefensePl {
                 break
 
             case PLATFORM_UPGRADING:
+                this.lastProgress = this.progress
+
                 if (this.progress === PLATFORM_UPGRADE_TIME) {
                     this._changeJob(PLATFORM_READY, 2 * this.level)
                     if (this.level === 2) {
@@ -66,17 +70,34 @@ class DefensePl {
         }
     }
 
-    render(con) {
-        const a0 = PLATFORM_ANGULAR_WIDTH * this.n - 0.44 * PLATFORM_ANGULAR_WIDTH
-        const a1 = PLATFORM_ANGULAR_WIDTH * this.n + 0.44 * PLATFORM_ANGULAR_WIDTH
+    render(con, t) {
+        const plSizeMul = 0.064 * (this.job === PLATFORM_UPGRADING ? 2 * this.level :
+            this.job === PLATFORM_BUILDING ? 1 : this.level) + 0.1
+
+        const a0 = PLATFORM_ANGULAR_WIDTH * (this.n - plSizeMul)
+        const a1 = PLATFORM_ANGULAR_WIDTH * (this.n + plSizeMul)
         const r0 = PLATFORM_ALTITUDE
         const r1 = PLATFORM_ALTITUDE + PLATFORM_HEIGHT
 
-        con.moveTo(r0 * Math.cos(a0), r0 * Math.sin(a0))
-        con.lineTo(r1 * Math.cos(a0), r1 * Math.sin(a0))
-        con.lineTo(r1 * Math.cos(a1), r1 * Math.sin(a1))
-        con.lineTo(r0 * Math.cos(a1), r0 * Math.sin(a1))
-        con.lineTo(r0 * Math.cos(a0), r0 * Math.sin(a0))
+        const ca0 = Math.cos(a0)
+        const ca1 = Math.cos(a1)
+        const sa0 = Math.sin(a0)
+        const sa1 = Math.sin(a1)
+
+        const x0 = r0 * ca0
+        const y0 = r0 * sa0
+        const x1 = r1 * ca0
+        const y1 = r1 * sa0
+        // const x2 = r1 * ca1
+        // const y2 = r1 * sa1
+        // const x3 = r0 * ca1
+        // const y3 = r0 * sa1
+
+        con.moveTo(x0, y0)
+        con.lineTo(x1, y1)
+        con.lineTo(lerp(x1, /* x2 = */ r1 * ca1, t), lerp(y1, /* y2 = */ r1 * sa1, t))
+        con.lineTo(lerp(x0, /* x3 = */ r0 * ca1, t), lerp(y0, /* y3 = */ r0 * sa1, t))
+        con.lineTo(x0, y0)
     }
 }
 
@@ -95,29 +116,76 @@ function updateDefenses(defenses) {
 
 /** Batch render all defenses */
 function renderDefenses(defenses, con, t) {
-    const rotation = lerp(
-        state.lastRotation,
-        state.rotation + (state.rotation < state.lastRotation ? PLATFORM_ROTATE_TIME : 0),
-        t)
+    const rotation = lerp(state.lastRotation,
+        state.rotation + (state.rotation < state.lastRotation ? PLATFORM_ROTATE_TIME : 0), t)
 
     con.save()
     con.translate(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_WIDTH)
     con.rotate(2 * Math.PI * rotation / PLATFORM_ROTATE_TIME)
+
+    // Ready defenses
 
     con.beginPath()
 
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = defenses[n]
 
-        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_READY) {
-            pl.render(con)
+        if (pl.job === PLATFORM_READY) {
+            pl.render(con, 1)
         }
     }
 
     con.closePath()
 
-    con.lineWidth = 2
-    con.strokeStyle = '#0080ff'
+    con.fillStyle = PAL_8CFF9B
+    con.fill()
+
+    con.lineWidth = 8
+    con.strokeStyle = PAL_BLACK
+    con.stroke()
+
+    con.lineWidth = 4
+    con.strokeStyle = PAL_8CFF9B
+    con.stroke()
+
+    // Building | upgrading progress
+
+    con.beginPath()
+
+    for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
+        const pl = defenses[n]
+
+        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_UPGRADING) {
+            pl.render(con, lerp(pl.lastProgress, pl.progress, t) /
+                (pl.job === PLATFORM_BUILDING ? PLATFORM_BUILD_TIME : PLATFORM_UPGRADE_TIME))
+        }
+    }
+
+    con.closePath()
+
+    con.fillStyle = PAL_FFE091
+    con.fill()
+
+    // Building | upgrading hulls
+
+    con.beginPath()
+
+    for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
+        const pl = defenses[n]
+
+        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_UPGRADING) {
+            pl.render(con, 1)
+        }
+    }
+
+    con.closePath()
+
+    con.lineWidth = 8
+    con.strokeStyle = PAL_BLACK
+    con.stroke()
+
+    con.lineWidth = 4
+    con.strokeStyle = PAL_8CFF9B
     con.stroke()
 
     // con.restore() -- this happens in renderCannons

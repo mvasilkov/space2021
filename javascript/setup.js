@@ -3,9 +3,9 @@
 const TOTAL_PLATFORMS = 12
 const PLATFORM_BUILD_TIME = 50 // ticks, 1 second = 50 ticks
 const PLATFORM_UPGRADE_TIME = 50
-const PLATFORM_ROTATE_TIME = 1991
+const PLATFORM_ROTATE_TIME = 3000
 
-const GAME_STARTING_TIME = 150
+const GAME_STARTING_TIME = 120
 const GAME_STARTING_PLANET_SIZE = 190
 const GAME_PLANET_SIZE = 90
 
@@ -46,6 +46,14 @@ canvases.bt.width = BRAILLE_CANVAS_WIDTH
 
 function lerp(a, b, t) {
     return a * (1 - t) + b * t
+}
+
+function easeInQuad(t) {
+    return t * t
+}
+
+function easeOutQuad(t) {
+    return t * (2 - t)
 }
 
 function easeInOutQuad(t) {

@@ -20,7 +20,7 @@ function render(t) {
     if (state.phase === GAME_STARTING) {
         const progress = lerp(state.lastProgress, state.progress, t)
         const planetSize = lerp(GAME_STARTING_PLANET_SIZE, GAME_PLANET_SIZE,
-            easeInOutQuad(progress / GAME_STARTING_TIME)) // & 0b11111100
+            easeOutQuad(progress / GAME_STARTING_TIME)) // & 0b11111100
 
         state.planet.resize(planetSize, planetSize)
 
