@@ -3,8 +3,8 @@
 /* 1bit Monitor Glow palette
  * https://lospec.com/palette-list/1bit-monitor-glow
  *
- * black #222323
- * white #F0F6F0
+ * off = #222323
+ * on = #F0F6F0
  */
 
 body {

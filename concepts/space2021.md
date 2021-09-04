@@ -1,8 +1,8 @@
 Review files:
 ---
 
-- [ ] actions.js
-- [ ] app.js
+- [x] actions.js
+- [x] app.js
 - [x] background.js                 Don't render stars under the planet.
                                     Then don't render blank braille tiles.
 - [x] braille.js

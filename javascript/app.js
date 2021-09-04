@@ -14,15 +14,21 @@ function render(t) {
     cons.a.clearRect(0, 0, GAME_CANVAS_WIDTH, GAME_CANVAS_WIDTH)
 
     // Resize the planet
+    let planetOffset = 0.5 * GAME_CANVAS_WIDTH - 3 *
+        (state.phase === GAME_BEFORE_START ? GAME_STARTING_PLANET_SIZE : GAME_PLANET_SIZE)
+
     if (state.phase === GAME_STARTING) {
         const progress = lerp(state.lastProgress, state.progress, t)
         const planetSize = lerp(GAME_STARTING_PLANET_SIZE, GAME_PLANET_SIZE,
-            progress / GAME_STARTING_TIME) // & 0b11111100
+            easeInOutQuad(progress / GAME_STARTING_TIME)) // & 0b11111100
 
         state.planet.resize(planetSize, planetSize)
+
+        planetOffset = (0.5 * GAME_CANVAS_WIDTH - 3 * planetSize) & 0xffe
     }
 
-    paintBraille(cons.a, canvases.bt, 0, 0, state.planet.render(), state.planet.enc)
+    paintBraille(cons.a, canvases.bt, planetOffset, planetOffset,
+        state.planet.render(), state.planet.enc)
 
     renderDefenses(state.defenses, cons.a, t)
 
