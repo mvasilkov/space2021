@@ -6,7 +6,7 @@ Review files:
 - [x] background.js                 Don't render stars under the planet.
                                     Then don't render blank braille tiles.
 - [x] braille.js
-- [ ] cannon.js
+- [ ] cannon.js                     Do we need updateCannons() at all?
 - [ ] defense.js
 - [ ] invader.js
 - [x] natlibMainloop.js
