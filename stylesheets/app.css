@@ -1,8 +1,16 @@
 @charset "utf-8";
 
+/* 1bit Monitor Glow palette
+ * https://lospec.com/palette-list/1bit-monitor-glow
+ *
+ * black #222323
+ * white #F0F6F0
+ */
+
 body {
-    background: #bbb;
+    background: #222323;
     font-family: -apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif;
+    margin: 1vw;
 }
 
 canvas {
@@ -15,43 +23,54 @@ canvas {
     justify-content: center;
 }
 
-#p1 {
-    background-color: #D8DEE9;
-    height: 540px;
-    width: 540px;
+#p1, #p2 {
+    background: #F0F6F0;
+}
+
+#p1, #a, #b, #nu {
+    height: 600px;
+    width: 600px;
 }
 
 #p2 {
-    background-color: #E5E9F0;
-    height: 540px;
-    width: 540px;
+    height: 500px;
+    width: 500px;
 }
 
-#a, #s {
-    height: 540px;
-    position: absolute; /* stack #a on top of #s */
-    width: 540px;
+#a, #b, #nu {
+    position: absolute; /* stack #a on top of #b */
 }
 
-#b {
+#bt {
+    display: none;
     height: 200px;
     width: 100px;
 }
 
-#news {
+#nu {
     display: flex;
     flex-direction: column-reverse;
-    height: 540px;
-    position: absolute;
-    width: 540px;
+    text-transform: capitalize;
 }
 
-.h1 {
+.nt, .n2 {
+    padding: 0 4px;
+}
+
+.nt {
     background: #fff;
-    color: #101010;
+    color: #222323;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
-.h2 {
-    background: #c00000;
+.n2 {
+    background: #DD3745;
     color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0 -4px;
+    text-shadow: 2px 2px #A52639;
 }

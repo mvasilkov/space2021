@@ -22,7 +22,7 @@ function render(t) {
         state.planet.resize(planetSize, planetSize)
     }
 
-    paintBraille(cons.a, canvases.b, 0, 0, state.planet.render(), state.planet.enc)
+    paintBraille(cons.a, canvases.bt, 0, 0, state.planet.render(), state.planet.enc)
 
     renderDefenses(state.defenses, cons.a, t)
 
@@ -34,11 +34,11 @@ function render(t) {
 function run() {
     initActions()
 
-    paintBrailleInit(cons.b)
+    paintBrailleInit(cons.bt)
 
     resetState()
 
-    paintBackground(cons.s, state.stars) // the background is static, so this should not be in render()
+    paintBackground(cons.b, state.stars) // the background is static, so this should not be in render()
 
     startMainloop(update, render)
 }
