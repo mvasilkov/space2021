@@ -30,7 +30,7 @@ function resetState() {
 
     state.defenses = Array(TOTAL_PLATFORMS)
 
-    state.cannons = Array(PLATFORM_TOP_LEVEL * TOTAL_PLATFORMS)
+    state.cannons = Array(TOTAL_CANNONS)
 
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = new DefensePl(n)

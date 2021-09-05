@@ -4,6 +4,12 @@ const actions = {
     start() {
         advancePhase(GAME_STARTING)
     },
+    attack(_unused, cans) {
+        cans = state.cannons.filter(can => can.job === CANNON_READY)
+        if (cans.length === 0) return
+
+        cans[(cans.length * Math.random()) | 0].attack()
+    },
     build(_unused, pls) {
         pls = state.defenses.filter(pl => pl.job === PLATFORM_MISSING)
         if (pls.length === 0) return

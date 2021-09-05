@@ -12,6 +12,9 @@ class Cannon {
     constructor(pl, n) {
         this.pl = pl
         this.n = n
+        // Used for rendering
+        this.x = 0
+        this.y = 0
 
         this._changeJob(CANNON_MISSING)
     }
@@ -22,11 +25,15 @@ class Cannon {
         this.lastProgress = 0
     }
 
-    render(con, x, y) {
+    attack() {
+        this._changeJob(CANNON_RELOADING)
+    }
+
+    render(con) {
         con.save()
 
-        con.translate(x, y)
-        con.rotate(Math.atan2(y, x))
+        con.translate(this.x, this.y)
+        con.rotate(Math.atan2(this.y, this.x))
 
         con.moveTo(0, CANNON_BASE_SIZE)
         con.arc(0, 0, CANNON_BASE_SIZE, 0.5 * Math.PI, 1.5 * Math.PI)
@@ -39,10 +46,28 @@ class Cannon {
 }
 
 function updateCannons(cannons) {
+    for (let n = 0; n < TOTAL_CANNONS; ++n) {
+        const can = cannons[n]
+
+        if (can.job === CANNON_RELOADING) {
+            can.lastProgress = can.progress
+
+            if (can.progress === CANNON_RELOAD_TIME) {
+                can._changeJob(CANNON_READY)
+            }
+            else {
+                ++can.progress
+            }
+        }
+    }
 }
 
+const cannonsReady = Array(TOTAL_CANNONS)
+const cannonsReloading = Array(TOTAL_CANNONS)
+
 function renderCannons(defenses, con, t) {
-    con.beginPath()
+    let countReady = 0
+    let countReloading = 0
 
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = defenses[n]
@@ -63,12 +88,23 @@ function renderCannons(defenses, con, t) {
 
             for (let cn = 0; cn < pl.level; ++cn) {
                 const ct = (cn + 1) / (sizeLevel + 1)
+                const can = pl.cannons[cn]
 
-                pl.cannons[cn].render(con,
-                    lerp(x0, x1, ct),
-                    lerp(y0, y1, ct))
+                can.x = lerp(x0, x1, ct)
+                can.y = lerp(y0, y1, ct)
+
+                if (can.job === CANNON_READY) cannonsReady[countReady++] = can
+                else cannonsReloading[countReloading++] = can // can.job === CANNON_RELOADING
             }
         }
+    }
+
+    // Paint ready
+
+    con.beginPath()
+
+    for (let n = 0; n < countReady; ++n) {
+        cannonsReady[n].render(con)
     }
 
     con.closePath()
