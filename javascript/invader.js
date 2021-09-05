@@ -47,7 +47,7 @@ function brownianMotion(invaders) {
         if (invaders[n].job === INVADER_MISSING) continue
 
         const subj = invaders[n]
-        const angle = Math.random() * 2 * Math.PI
+        const angle = Math.random() * MATH_2PI
 
         subj.lastPos.copy(subj.pos)
         subj.pos.x += 4 * Math.cos(angle)

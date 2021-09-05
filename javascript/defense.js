@@ -10,7 +10,7 @@ const PLATFORM_TOP_LEVEL = 4
 
 // Rendering constants
 const PLATFORM_ALTITUDE = 350
-const PLATFORM_ANGULAR_WIDTH = 2 * Math.PI / TOTAL_PLATFORMS
+const PLATFORM_ANGULAR_WIDTH = MATH_2PI / TOTAL_PLATFORMS
 const PLATFORM_HEIGHT = 30
 
 class DefensePl {
@@ -121,7 +121,7 @@ function renderDefenses(defenses, con, t) {
 
     con.save()
     con.translate(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_WIDTH)
-    con.rotate(2 * Math.PI * rotation / PLATFORM_ROTATE_TIME)
+    con.rotate(MATH_2PI * rotation / PLATFORM_ROTATE_TIME)
 
     // Ready defenses
 

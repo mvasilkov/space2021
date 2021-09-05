@@ -18,6 +18,8 @@ const GAME_CANVAS_WIDTH = 1200
 
 const FONTS = `-apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif`
 
+const MATH_2PI = 2 * Math.PI
+
 const canvases = {
     /** Main screen canvas */
     a: document.getElementById('a'),
