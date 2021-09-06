@@ -138,7 +138,7 @@ function renderCannons(defenses, con, t) {
         cannonsReady[n].render(con)
     }
 
-    con.fillStyle = PAL_FFA5D5
+    con.fillStyle = PAL_78FAE6
     con.fill()
 
     con.lineWidth = 8
@@ -146,7 +146,7 @@ function renderCannons(defenses, con, t) {
     con.stroke()
 
     con.lineWidth = 4
-    con.strokeStyle = PAL_FFA5D5
+    con.strokeStyle = PAL_78FAE6
     con.stroke()
 
     // Reloading background
@@ -194,7 +194,7 @@ function renderCannons(defenses, con, t) {
     con.stroke()
 
     con.lineWidth = 4
-    con.strokeStyle = PAL_FFA5D5
+    con.strokeStyle = PAL_78FAE6
     con.stroke()
 
     con.restore() // saved in renderDefenses

@@ -8,6 +8,8 @@ class Invader {
         this.job = INVADER_MISSING
         this.pos = null
         this.lastPos = null
+        this.angle = 0
+        this.lastAngle = 0
     }
 
     initialize() {
@@ -17,6 +19,56 @@ class Invader {
             GAME_CANVAS_HEIGHT * Math.random())
         this.lastPos = new Vec2
         this.lastPos.copy(this.pos)
+        this.angle = this.lastAngle = MATH_2PI * Math.random()
+    }
+
+    update() {
+        this.lastPos.copy(this.pos)
+
+        this.pos.x += INVADER_SPEED * Math.cos(this.angle)
+        this.pos.y += INVADER_SPEED * Math.sin(this.angle)
+
+        if (this.pos.x < 0) {
+            this.pos.x += GAME_CANVAS_WIDTH
+            this.lastPos.x += GAME_CANVAS_WIDTH
+        }
+        else if (this.pos.x >= GAME_CANVAS_WIDTH) {
+            this.pos.x -= GAME_CANVAS_WIDTH
+            this.lastPos.x -= GAME_CANVAS_WIDTH
+        }
+
+        if (this.pos.y < 0) {
+            this.pos.y += GAME_CANVAS_HEIGHT
+            this.lastPos.y += GAME_CANVAS_HEIGHT
+        }
+        else if (this.pos.y >= GAME_CANVAS_HEIGHT) {
+            this.pos.y -= GAME_CANVAS_HEIGHT
+            this.lastPos.y -= GAME_CANVAS_HEIGHT
+        }
+    }
+
+    render(con, t) {
+        con.save()
+
+        con.translate(
+            lerp(this.lastPos.x, this.pos.x, t),
+            lerp(this.lastPos.y, this.pos.y, t))
+        con.rotate(lerp(this.lastAngle, this.angle, t))
+
+        con.moveTo(-10, 10)
+        con.lineTo(20, 0)
+        con.lineTo(-10, -10)
+        con.closePath()
+
+        con.restore()
+    }
+}
+
+function updateInvaders(invaders) {
+    for (let n = 0; n < TOTAL_INVADERS; ++n) {
+        if (invaders[n].job === INVADER_ALIVE) {
+            invaders[n].update()
+        }
     }
 }
 
@@ -25,20 +77,18 @@ function renderInvaders(invaders, con, t) {
     con.beginPath()
 
     for (let n = 0; n < TOTAL_INVADERS; ++n) {
-        if (invaders[n].job === INVADER_MISSING) continue
-
-        const subj = invaders[n]
-        const x = lerp(subj.lastPos.x, subj.pos.x, t)
-        const y = lerp(subj.lastPos.y, subj.pos.y, t)
-
-        con.rect(x - 4, y - 4, 8, 8)
+        if (invaders[n].job === INVADER_ALIVE) {
+            invaders[n].render(con, t)
+        }
     }
 
-    con.closePath()
-
-    con.lineWidth = 2
-    con.strokeStyle = '#ff0080'
+    con.lineWidth = 4
+    con.strokeStyle = PAL_FFA5D5
     con.stroke()
+
+    // con.lineWidth = 4
+    // con.fillStyle = PAL_FFA5D5
+    // con.fill()
 }
 
 // Random walk: choose a direction, go 4 units in that direction

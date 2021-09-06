@@ -7,7 +7,7 @@ function update() {
 
     updateCannons(state.cannons)
 
-    brownianMotion(state.invaders)
+    updateInvaders(state.invaders)
 }
 
 function render(t) {

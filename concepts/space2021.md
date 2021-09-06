@@ -7,7 +7,7 @@ Review files:
 - [x] braille.js                    Erase prerender code
 - [ ] cannon.js
 - [ ] defense.js
-- [ ] invader.js
+- [ ] invader.js                    Erase random walk code
 - [x] natlibMainloop.js
 - [x] natlibMulberry32.js           Remove the entire file if not used
 - [x] natlibVec2.js                 Remove methods that aren't in use
