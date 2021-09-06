@@ -95,7 +95,7 @@ class DefensePl {
         con.lineTo(x1, y1)
         con.lineTo(lerp(x1, /* x2 = */ r1 * ca1, t), lerp(y1, /* y2 = */ r1 * sa1, t))
         con.lineTo(lerp(x0, /* x3 = */ r0 * ca1, t), lerp(y0, /* y3 = */ r0 * sa1, t))
-        con.lineTo(x0, y0)
+        con.closePath()
     }
 }
 
