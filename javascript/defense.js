@@ -41,7 +41,7 @@ class DefensePl {
 
                 if (this.progress === PLATFORM_BUILD_TIME) {
                     this._changeJob(PLATFORM_READY, 1)
-                    this.cannons[0]._changeJob(CANNON_READY) // can rewrite to [this.level - 1]
+                    this.cannons[this.level - 1]._changeJob(CANNON_RELOADING)
                 }
                 else {
                     ++this.progress
@@ -53,12 +53,9 @@ class DefensePl {
 
                 if (this.progress === PLATFORM_UPGRADE_TIME) {
                     this._changeJob(PLATFORM_READY, 2 * this.level)
-                    if (this.level === 2) {
-                        this.cannons[1]._changeJob(CANNON_READY) // can rewrite to [this.level - 1]
-                    }
-                    else { // this.level === PLATFORM_TOP_LEVEL
-                        this.cannons[2]._changeJob(CANNON_READY)
-                        this.cannons[3]._changeJob(CANNON_READY)
+                    this.cannons[this.level - 1]._changeJob(CANNON_RELOADING)
+                    if (this.level === PLATFORM_TOP_LEVEL) {
+                        this.cannons[2]._changeJob(CANNON_RELOADING)
                     }
                 }
                 else {
