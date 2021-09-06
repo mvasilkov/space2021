@@ -8,6 +8,8 @@ function update() {
     updateCannons(state.cannons)
 
     updateInvaders(state.invaders)
+
+    updateRockets(state.rockets)
 }
 
 function render(t) {
@@ -35,6 +37,8 @@ function render(t) {
     renderCannons(state.defenses, cons.a, t)
 
     renderInvaders(state.invaders, cons.a, t)
+
+    renderRockets(state.rockets, cons.a, t)
 }
 
 function run() {

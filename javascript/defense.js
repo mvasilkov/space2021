@@ -34,6 +34,33 @@ class DefensePl {
         this._changeJob(PLATFORM_UPGRADING, this.level)
     }
 
+    updateCannonsRelativeToRotation(callback) {
+        // if (this.job === PLATFORM_UPGRADING || this.job === PLATFORM_READY)
+
+        const sizeLevel = (this.job === PLATFORM_UPGRADING ? 2 * this.level : this.level)
+        const plSizeMul = 0.064 * sizeLevel + 0.14
+
+        const a0 = PLATFORM_ANGULAR_WIDTH * (this.n - plSizeMul)
+        const a1 = PLATFORM_ANGULAR_WIDTH * (this.n + plSizeMul)
+
+        const rp = PLATFORM_ALTITUDE + 0.74 * PLATFORM_HEIGHT
+
+        const x0 = rp * Math.cos(a0)
+        const y0 = rp * Math.sin(a0)
+        const x1 = rp * Math.cos(a1)
+        const y1 = rp * Math.sin(a1)
+
+        for (let cn = 0; cn < this.level; ++cn) {
+            const ct = (cn + 1) / (sizeLevel + 1)
+            const can = this.cannons[cn]
+
+            can.x = lerp(x0, x1, ct)
+            can.y = lerp(y0, y1, ct)
+
+            callback(can)
+        }
+    }
+
     update() {
         switch (this.job) {
             case PLATFORM_BUILDING:

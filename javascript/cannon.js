@@ -25,7 +25,11 @@ class Cannon {
         this.lastProgress = 0
     }
 
-    attack() {
+    attack(rocket, target) {
+        this.pl.updateCannonsRelativeToRotation(nop)
+
+        rocket.initialize(this, target)
+
         this._changeJob(CANNON_RELOADING)
     }
 
@@ -104,29 +108,10 @@ function renderCannons(defenses, con, t) {
         const pl = defenses[n]
 
         if (pl.job === PLATFORM_UPGRADING || pl.job === PLATFORM_READY) {
-            const sizeLevel = (pl.job === PLATFORM_UPGRADING ? 2 * pl.level : pl.level)
-            const plSizeMul = 0.064 * sizeLevel + 0.14
-
-            const a0 = PLATFORM_ANGULAR_WIDTH * (pl.n - plSizeMul)
-            const a1 = PLATFORM_ANGULAR_WIDTH * (pl.n + plSizeMul)
-
-            const rp = PLATFORM_ALTITUDE + 0.74 * PLATFORM_HEIGHT
-
-            const x0 = rp * Math.cos(a0)
-            const y0 = rp * Math.sin(a0)
-            const x1 = rp * Math.cos(a1)
-            const y1 = rp * Math.sin(a1)
-
-            for (let cn = 0; cn < pl.level; ++cn) {
-                const ct = (cn + 1) / (sizeLevel + 1)
-                const can = pl.cannons[cn]
-
-                can.x = lerp(x0, x1, ct)
-                can.y = lerp(y0, y1, ct)
-
+            pl.updateCannonsRelativeToRotation(can => {
                 if (can.job === CANNON_READY) cannonsReady[countReady++] = can
                 else cannonsReloading[countReloading++] = can // can.job === CANNON_RELOADING
-            }
+            })
         }
     }
 

@@ -8,7 +8,15 @@ const actions = {
         cans = state.cannons.filter(can => can.job === CANNON_READY)
         if (cans.length === 0) return
 
-        cans[(cans.length * Math.random()) | 0].attack()
+        const rocket = state.rockets.find(rocket =>
+            rocket.job === ROCKET_MISSING)
+
+        const target = state.invaders.find(subj =>
+            subj.job === INVADER_ALIVE && !subj.targeted)
+
+        if (rocket !== undefined && target !== undefined) {
+            cans[(cans.length * Math.random()) | 0].attack(rocket, target)
+        }
     },
     build(_unused, pls) {
         pls = state.defenses.filter(pl => pl.job === PLATFORM_MISSING)

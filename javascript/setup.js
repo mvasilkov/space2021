@@ -17,6 +17,10 @@ const TOTAL_INVADERS = 16
 const INVADER_SPEED = 6
 const INVADER_STEERING = 0.1 * Math.PI
 
+const TOTAL_ROCKETS = TOTAL_INVADERS
+const ROCKET_SPEED = 8
+const ROCKET_STEERING = 0.1 * Math.PI
+
 const GAME_CANVAS_HEIGHT = 1200
 const GAME_CANVAS_WIDTH = 1200
 
@@ -68,6 +72,9 @@ function easeInOutQuad(t) {
     return t < 0.5 ?
         2 * t * t :
         2 * t * (2 - t) - 1
+}
+
+function nop() {
 }
 
 function wrapInc(val, start, end) {

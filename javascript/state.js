@@ -52,6 +52,12 @@ function resetState() {
     for (let n = 0; n < TOTAL_INVADERS; ++n) {
         state.invaders[n] = new Invader
     }
+
+    state.rockets = Array(TOTAL_ROCKETS)
+
+    for (let n = 0; n < TOTAL_ROCKETS; ++n) {
+        state.rockets[n] = new Rocket
+    }
 }
 
 function advancePhase(toPhase) {

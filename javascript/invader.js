@@ -6,10 +6,11 @@ const INVADER_ALIVE = 1
 class Invader {
     constructor() {
         this.job = INVADER_MISSING
-        this.pos = null
-        this.lastPos = null
+        this.pos = new Vec2
+        this.lastPos = new Vec2
         this.angle = 0
         this.lastAngle = 0
+        this.targeted = false
     }
 
     initialize() {
@@ -17,12 +18,12 @@ class Invader {
         const coord = GAME_CANVAS_WIDTH * Math.random()
 
         this.job = INVADER_ALIVE
-        this.pos = new Vec2(
+        this.pos.set(
             spawn ? coord : 0,
             spawn ? 0 : coord)
-        this.lastPos = new Vec2
         this.lastPos.copy(this.pos)
         this.angle = this.lastAngle = MATH_2PI * Math.random() - Math.PI
+        this.targeted = false
     }
 
     update() {
