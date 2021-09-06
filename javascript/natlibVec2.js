@@ -52,4 +52,10 @@ class Vec2 {
     dot(other) {
         return this.x * other.x + this.y * other.y
     }
+    /** Compute the squared distance from this vector to the other one. */
+    distanceSquared(otherx, othery) {
+        const x = this.x - otherx
+        const y = this.y - othery
+        return x * x + y * y
+    }
 }

@@ -15,6 +15,8 @@ Review files:
 - [x] palette.js                    Rename used colors. Comment out unused colors
 - [x] planet.js                     Allow resize
 - [x] setup.js                      Need to tweak constants
+                                    Erase unused utility functions
+                                    GAME_CANVAS_SIZE
 - [x] state.js
 
 - [ ] index.html

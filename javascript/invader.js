@@ -13,38 +13,50 @@ class Invader {
     }
 
     initialize() {
+        const spawn = Math.random() < 0.5
+        const coord = GAME_CANVAS_WIDTH * Math.random()
+
         this.job = INVADER_ALIVE
         this.pos = new Vec2(
-            GAME_CANVAS_WIDTH * Math.random(),
-            GAME_CANVAS_HEIGHT * Math.random())
+            spawn ? coord : 0,
+            spawn ? 0 : coord)
         this.lastPos = new Vec2
         this.lastPos.copy(this.pos)
-        this.angle = this.lastAngle = MATH_2PI * Math.random()
+        this.angle = this.lastAngle = MATH_2PI * Math.random() - Math.PI
     }
 
     update() {
         this.lastPos.copy(this.pos)
+        this.lastAngle = this.angle
+
+        if (this.pos.distanceSquared(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_WIDTH) < 2e5) {
+            // Avoid planet
+            const desiredAngle = Math.atan2(
+                this.pos.y - 0.5 * GAME_CANVAS_HEIGHT,
+                this.pos.x - 0.5 * GAME_CANVAS_WIDTH)
+
+            let difference = this.angle - desiredAngle
+            difference += wrapAngleInc(difference)
+
+            this.angle += difference > 0 ? -INVADER_STEERING : INVADER_STEERING
+        }
+        else {
+            this.angle += INVADER_STEERING * (Math.random() - 0.5)
+        }
 
         this.pos.x += INVADER_SPEED * Math.cos(this.angle)
         this.pos.y += INVADER_SPEED * Math.sin(this.angle)
 
-        if (this.pos.x < 0) {
-            this.pos.x += GAME_CANVAS_WIDTH
-            this.lastPos.x += GAME_CANVAS_WIDTH
-        }
-        else if (this.pos.x >= GAME_CANVAS_WIDTH) {
-            this.pos.x -= GAME_CANVAS_WIDTH
-            this.lastPos.x -= GAME_CANVAS_WIDTH
-        }
+        const dx = wrapInc(this.pos.x, 0, GAME_CANVAS_WIDTH)
+        const dy = wrapInc(this.pos.y, 0, GAME_CANVAS_HEIGHT)
+        const da = wrapAngleInc(this.angle)
 
-        if (this.pos.y < 0) {
-            this.pos.y += GAME_CANVAS_HEIGHT
-            this.lastPos.y += GAME_CANVAS_HEIGHT
-        }
-        else if (this.pos.y >= GAME_CANVAS_HEIGHT) {
-            this.pos.y -= GAME_CANVAS_HEIGHT
-            this.lastPos.y -= GAME_CANVAS_HEIGHT
-        }
+        this.pos.x += dx
+        this.lastPos.x += dx
+        this.pos.y += dy
+        this.lastPos.y += dy
+        this.angle += da
+        this.lastAngle += da
     }
 
     render(con, t) {

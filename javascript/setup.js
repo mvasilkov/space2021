@@ -15,6 +15,7 @@ const CANNON_RELOAD_TIME = 50
 
 const TOTAL_INVADERS = 16
 const INVADER_SPEED = 6
+const INVADER_STEERING = 0.1 * Math.PI
 
 const GAME_CANVAS_HEIGHT = 1200
 const GAME_CANVAS_WIDTH = 1200
@@ -67,4 +68,12 @@ function easeInOutQuad(t) {
     return t < 0.5 ?
         2 * t * t :
         2 * t * (2 - t) - 1
+}
+
+function wrapInc(val, start, end) {
+    return val < start ? end : val >= end ? -end : 0
+}
+
+function wrapAngleInc(val) {
+    return val < -Math.PI ? MATH_2PI : val >= Math.PI ? -MATH_2PI : 0
 }
