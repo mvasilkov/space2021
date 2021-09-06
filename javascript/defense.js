@@ -133,8 +133,6 @@ function renderDefenses(defenses, con, t) {
         }
     }
 
-    con.closePath()
-
     con.fillStyle = PAL_8CFF9B
     con.fill()
 
@@ -159,8 +157,6 @@ function renderDefenses(defenses, con, t) {
         }
     }
 
-    con.closePath()
-
     con.fillStyle = PAL_FFE091
     con.fill()
 
@@ -175,8 +171,6 @@ function renderDefenses(defenses, con, t) {
             pl.render(con, 1)
         }
     }
-
-    con.closePath()
 
     con.lineWidth = 8
     con.strokeStyle = PAL_BLACK

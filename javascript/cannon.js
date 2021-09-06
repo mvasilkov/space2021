@@ -138,8 +138,6 @@ function renderCannons(defenses, con, t) {
         cannonsReady[n].render(con)
     }
 
-    con.closePath()
-
     con.fillStyle = PAL_FFA5D5
     con.fill()
 
@@ -151,26 +149,7 @@ function renderCannons(defenses, con, t) {
     con.strokeStyle = PAL_FFA5D5
     con.stroke()
 
-    // Paint reloading
-
-    con.beginPath()
-
-    for (let n = 0; n < countReloading; ++n) {
-        const can = cannonsReloading[n]
-
-        can.render2(con, lerp(can.lastProgress, can.progress, t) / CANNON_RELOAD_TIME)
-    }
-
-    con.closePath()
-
-    con.lineWidth = 4
-    con.strokeStyle = PAL_BLACK
-    con.stroke()
-
-    con.fillStyle = PAL_FFE091
-    con.fill()
-
-    // Paint reloading hulls
+    // Reloading background
 
     con.beginPath()
 
@@ -180,7 +159,35 @@ function renderCannons(defenses, con, t) {
         can.render(con)
     }
 
-    con.closePath()
+    con.fillStyle = PAL_BLACK
+    con.fill()
+
+    // Reloading progress
+
+    con.beginPath()
+
+    for (let n = 0; n < countReloading; ++n) {
+        const can = cannonsReloading[n]
+
+        can.render2(con, lerp(can.lastProgress, can.progress, t) / CANNON_RELOAD_TIME)
+    }
+
+    con.lineWidth = 4
+    con.strokeStyle = PAL_BLACK
+    con.stroke()
+
+    con.fillStyle = PAL_FFE091
+    con.fill()
+
+    // Reloading hulls
+
+    con.beginPath()
+
+    for (let n = 0; n < countReloading; ++n) {
+        const can = cannonsReloading[n]
+
+        can.render(con)
+    }
 
     con.lineWidth = 8
     con.strokeStyle = PAL_BLACK

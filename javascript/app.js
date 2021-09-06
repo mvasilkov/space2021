@@ -27,7 +27,7 @@ function render(t) {
         planetOffset = (0.5 * GAME_CANVAS_WIDTH - 3 * planetSize) & 0xffe
     }
 
-    paintBraille(cons.a, canvases.bt, planetOffset, planetOffset,
+    paintBraille(cons.a, planetOffset, planetOffset, PAL_78FAE6,
         state.planet.render(), state.planet.enc)
 
     renderDefenses(state.defenses, cons.a, t)
@@ -39,8 +39,6 @@ function render(t) {
 
 function run() {
     initActions()
-
-    paintBrailleInit(cons.bt)
 
     resetState()
 

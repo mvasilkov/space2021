@@ -4,8 +4,7 @@ Review files:
 - [x] actions.js
 - [x] app.js
 - [x] background.js                 Don't render stars under the planet.
-                                    Then don't render blank braille tiles.
-- [x] braille.js
+- [x] braille.js                    Erase prerender code
 - [ ] cannon.js
 - [ ] defense.js
 - [ ] invader.js
