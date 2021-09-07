@@ -13,11 +13,10 @@ Review files:
 - [x] noise.js
 - [x] palette.js                    Comment out unused colors
 - [x] planet.js
-- [ ] rocket.js                     'Find shortest distance' can be a loop (for size)
+- [ ] rocket.js                     'Find shortest distance' can be a loop (for code size)
 - [x] setup.js                      Need to tweak constants
                                     Erase unused utility functions
-                                    GAME_CANVAS_SIZE
 - [x] state.js
 
 - [ ] index.html
-- [ ] app.css
+- [x] app.css

@@ -16,7 +16,7 @@ function resetState() {
     /** Related to the current phase */
     state.progress = state.lastProgress = 0
 
-    state.funds = 2
+    state.funds = state.lastFunds = 2
 
     /** Background stars */
     state.stars = Array(TOTAL_STARS)
@@ -88,6 +88,10 @@ function advancePhase(toPhase) {
 }
 
 function updateGlobalState() {
+    if (state.funds !== state.lastFunds) {
+        fundsDisplay.textContent = '' + (state.lastFunds = state.funds)
+    }
+
     if (state.phase === GAME_STARTING) {
         state.lastProgress = state.progress
 
@@ -114,6 +118,8 @@ function rocketHit(rocket) {
             if (++allocatedDebris === HIT_DEBRIS) break
         }
     }
+
+    ++state.funds
 
     rocket.target.initialize()
 }

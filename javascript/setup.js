@@ -52,6 +52,8 @@ canvases.a.width = canvases.b.width = GAME_CANVAS_WIDTH
 
 cons.a.miterLimit = 1
 
+const fundsDisplay = document.getElementById('doge').firstChild
+
 // Utility functions
 
 function lerp(a, b, t) {

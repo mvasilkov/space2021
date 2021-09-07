@@ -68,3 +68,20 @@ canvas {
     margin: 0 -4px;
     text-shadow: 2px 2px #A52639;
 }
+
+#fun {
+    color: #8CDAFF;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 2;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 1px 1px #50B9EB, 0 2px 1px #3E83D1;
+    white-space: nowrap;
+}
+
+#doge {
+    color: #FFE091;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 1px 1px #FFAA6E, 0 2px 1px #FF695A;
+}

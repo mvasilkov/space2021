@@ -9,7 +9,7 @@ class Debris {
         this.pos = new Vec2
         this.lastPos = new Vec2
         this.angle = 0
-        this.lastAngle = 0
+        this.lastAngle = 0 // not used. Required because goAndWrap updates it
         this.life = 0
     }
 
