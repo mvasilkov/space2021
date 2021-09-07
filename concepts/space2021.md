@@ -14,6 +14,7 @@ Review files:
 - [x] noise.js
 - [x] palette.js                    Rename used colors. Comment out unused colors
 - [x] planet.js                     Allow resize
+- [ ] rocket.js                     'Find shortest distance' can be a loop (for size)
 - [x] setup.js                      Need to tweak constants
                                     Erase unused utility functions
                                     GAME_CANVAS_SIZE

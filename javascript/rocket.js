@@ -8,6 +8,8 @@ class Rocket {
         this.job = ROCKET_MISSING
         this.pos = new Vec2
         this.lastPos = new Vec2
+        this.angle = 0
+        this.lastAngle = 0
         this.target = null
     }
 
@@ -27,24 +29,65 @@ class Rocket {
         this.pos.set(x, y)
         this.lastPos.set(x, y)
 
+        this.angle = this.lastAngle = rot + Math.atan2(cannon.y, cannon.x)
+
         this.target = target
     }
 
     update() {
-        const dist = this.pos.distanceSquared(this.target.pos.x, this.target.pos.y)
+        this.lastPos.copy(this.pos)
+        this.lastAngle = this.angle
+
+        // Find shortest distance
+
+        let tx = this.target.pos.x
+        let ty = this.target.pos.y
+        let effectiveTx = tx
+        let effectiveTy = ty
+        let dist = this.pos.distanceSquared(tx, ty)
+        let dist2
+
+        if ((dist2 = this.pos.distanceSquared(tx + GAME_CANVAS_WIDTH, ty)) < dist) {
+            dist = dist2
+            effectiveTx = tx + GAME_CANVAS_WIDTH
+            effectiveTy = ty
+        }
+
+        if ((dist2 = this.pos.distanceSquared(tx - GAME_CANVAS_WIDTH, ty)) < dist) {
+            dist = dist2
+            effectiveTx = tx - GAME_CANVAS_WIDTH
+            effectiveTy = ty
+        }
+
+        if ((dist2 = this.pos.distanceSquared(tx, ty + GAME_CANVAS_HEIGHT)) < dist) {
+            dist = dist2
+            effectiveTx = tx
+            effectiveTy = ty + GAME_CANVAS_HEIGHT
+        }
+
+        if ((dist2 = this.pos.distanceSquared(tx, ty - GAME_CANVAS_HEIGHT)) < dist) {
+            dist = dist2
+            effectiveTx = tx
+            effectiveTy = ty - GAME_CANVAS_HEIGHT
+        }
+
+        // End shortest distance
+
         if (dist < ROCKET_SPEED * ROCKET_SPEED) {
             this.job = ROCKET_MISSING
             this.target.initialize()
         }
 
         const direction = Math.atan2(
-            this.target.pos.y - this.pos.y,
-            this.target.pos.x - this.pos.x)
+            effectiveTy - this.pos.y,
+            effectiveTx - this.pos.x)
 
-        this.lastPos.copy(this.pos)
+        let difference = this.angle - direction
+        difference += wrapAngleInc(difference)
 
-        this.pos.x += ROCKET_SPEED * Math.cos(direction)
-        this.pos.y += ROCKET_SPEED * Math.sin(direction)
+        this.angle += difference > 0 ? -INVADER_STEERING : INVADER_STEERING
+
+        goAndWrap(this, ROCKET_SPEED)
     }
 
     render(con, t) {

@@ -45,19 +45,7 @@ class Invader {
             this.angle += INVADER_STEERING * (Math.random() - 0.5)
         }
 
-        this.pos.x += INVADER_SPEED * Math.cos(this.angle)
-        this.pos.y += INVADER_SPEED * Math.sin(this.angle)
-
-        const dx = wrapInc(this.pos.x, 0, GAME_CANVAS_WIDTH)
-        const dy = wrapInc(this.pos.y, 0, GAME_CANVAS_HEIGHT)
-        const da = wrapAngleInc(this.angle)
-
-        this.pos.x += dx
-        this.lastPos.x += dx
-        this.pos.y += dy
-        this.lastPos.y += dy
-        this.angle += da
-        this.lastAngle += da
+        goAndWrap(this, INVADER_SPEED)
     }
 
     render(con, t) {
@@ -116,4 +104,21 @@ function brownianMotion(invaders) {
         subj.pos.x += 4 * Math.cos(angle)
         subj.pos.y += 4 * Math.sin(angle)
     }
+}
+
+// Invader and rocket really should've inherited from the same class.
+function goAndWrap(subj, speed) {
+    subj.pos.x += speed * Math.cos(subj.angle)
+    subj.pos.y += speed * Math.sin(subj.angle)
+
+    const dx = wrapInc(subj.pos.x, 0, GAME_CANVAS_WIDTH)
+    const dy = wrapInc(subj.pos.y, 0, GAME_CANVAS_HEIGHT)
+    const da = wrapAngleInc(subj.angle)
+
+    subj.pos.x += dx
+    subj.lastPos.x += dx
+    subj.pos.y += dy
+    subj.lastPos.y += dy
+    subj.angle += da
+    subj.lastAngle += da
 }
