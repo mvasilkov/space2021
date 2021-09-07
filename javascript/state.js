@@ -18,6 +18,11 @@ function resetState() {
 
     state.funds = state.lastFunds = 2
 
+    state.costs = {
+        build: 2,
+        upgrade: 8,
+    }
+
     /** Background stars */
     state.stars = Array(TOTAL_STARS)
 
@@ -77,6 +82,9 @@ function advancePhase(toPhase) {
             break
 
         case GAME_INVADERS_ACTIVE:
+            actionEnter('attack')
+            actionEnter('build')
+
             // Make sure the planet size isn't fractional, like 100.05
             state.planet.resize(GAME_PLANET_SIZE, GAME_PLANET_SIZE)
 
@@ -92,6 +100,12 @@ function advancePhase(toPhase) {
 function updateGlobalState() {
     if (state.funds !== state.lastFunds) {
         fundsDisplay.textContent = '' + (state.lastFunds = state.funds)
+
+        // Update buttons' availability
+
+        for (let action in state.costs) {
+            actionSetEnabled(action, state.funds >= state.costs[action])
+        }
     }
 
     if (state.phase === GAME_STARTING) {

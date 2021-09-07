@@ -19,4 +19,5 @@ Review files:
 - [x] state.js
 
 - [ ] index.html
-- [x] app.css
+- [x] app.css                       Make enough space, so that entering buttons
+                                    don't cause the screen to shift.

@@ -81,10 +81,13 @@ class Cannon {
 }
 
 function updateCannons(cannons) {
+    let hasReady = false
+
     for (let n = 0; n < TOTAL_CANNONS; ++n) {
         const can = cannons[n]
 
-        if (can.job === CANNON_RELOADING) {
+        if (can.job === CANNON_READY) hasReady = true
+        else if (can.job === CANNON_RELOADING) {
             can.lastProgress = can.progress
 
             if (can.progress === CANNON_RELOAD_TIME) {
@@ -95,6 +98,8 @@ function updateCannons(cannons) {
             }
         }
     }
+
+    actionSetEnabled('attack', hasReady)
 }
 
 const cannonsReady = Array(TOTAL_CANNONS)

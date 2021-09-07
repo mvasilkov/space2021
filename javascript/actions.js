@@ -2,6 +2,7 @@
 
 const actions = {
     start() {
+        actionLeave('start')
         advancePhase(GAME_STARTING)
     },
     attack(_unused, cans) {
@@ -21,6 +22,9 @@ const actions = {
     build(_unused, pls) {
         pls = state.defenses.filter(pl => pl.job === PLATFORM_MISSING)
         if (pls.length === 0) return
+        if (pls.length === 1) actionLeave('build')
+
+        actionSetCost('build', state.costs.build *= 2)
 
         pls[(pls.length * Math.random()) | 0].build()
     },
@@ -38,6 +42,12 @@ const actions = {
         }
         else return
 
+        if (plsLevel1.length === 0 && plsLevel2.length === 1) {
+            actionLeave('upgrade')
+        }
+
+        actionSetCost('build', state.costs.upgrade *= 2)
+
         pls[(pls.length * Math.random()) | 0].upgrade()
     },
 }
@@ -48,6 +58,10 @@ function initActions() {
 
         b.addEventListener('click', function (event) {
             event.preventDefault()
+
+            if (state.costs.hasOwnProperty(a))
+                state.funds -= state.costs[a]
+
             actions[a](event)
         })
     }

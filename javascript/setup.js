@@ -75,6 +75,27 @@ function easeInOutQuad(t) {
         2 * t * (2 - t) - 1
 }
 
+function actionEnter(action) {
+    const x = document.getElementById('fn-' + action)
+    if (x.className !== 'fn enter') x.className = 'fn enter'
+}
+
+function actionLeave(action) {
+    const x = document.getElementById('fn-' + action)
+    if (x.className !== 'fn') x.className = 'fn'
+}
+
+function actionSetEnabled(action, enabled) {
+    const desiredClassName = enabled ? '' : 'off'
+    const x = document.getElementById('btn-' + action)
+    if (x.className !== desiredClassName) x.className = desiredClassName
+}
+
+function actionSetCost(action, cost) {
+    const x = document.getElementById('c-' + action)
+    x.firstChild.textContent = '' + cost
+}
+
 function nop() {
 }
 

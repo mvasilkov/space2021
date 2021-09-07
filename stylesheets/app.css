@@ -17,6 +17,8 @@ canvas {
     display: block;
 }
 
+/* Page layout */
+
 #all {
     display: flex;
     flex-wrap: wrap;
@@ -68,11 +70,13 @@ canvas {
     text-shadow: 2px 2px #A52639;
 }
 
+/* Page heading */
+
 #fun {
     color: #8CDAFF;
     font-size: 32px;
     font-weight: 600;
-    line-height: 2;
+    line-height: 1.6;
     margin-bottom: 10px;
     opacity: 0;
     text-align: center;
@@ -87,13 +91,15 @@ canvas {
     text-shadow: 0 1px 1px #FFAA6E, 0 2px 1px #FF695A;
 }
 
-#p2 div {
+/* Action buttons */
+
+.fn {
     padding-bottom: 10px;
 }
 
-#p2 a {
+.fn a {
     background: #50B9EB;
-    border-radius: 3px;
+    border-radius: 6px;
     box-shadow: 0 1px 1px #3E83D1, 0 1px 2px #3E83D1;
     color: #fff;
     display: inline-block;
@@ -105,21 +111,53 @@ canvas {
     white-space: pre-line;
 }
 
-#p2 a span {
+.fn a span {
     color: #FFE091;
     text-shadow: 0 1px 1px #FFAA6E, 0 1px 2px #FF695A, 0 1px 4px #3E83D1;
 }
 
-#p2 a:hover {
-    background: #27D3CB;
-    box-shadow: 0 1px 1px #00AAA5, 0 1px 2px #00AAA5;
-    text-shadow: 0 1px 1px #00AAA5, 0 1px 2px #00AAA5, 0 1px 4px #00AAA5;
+.fn a:hover {
+    background: #FF6EAF;
+    box-shadow: 0 1px 1px #E54286, 0 1px 2px #E54286;
+    text-shadow: 0 1px 1px #E54286, 0 1px 2px #E54286, 0 1px 4px #E54286;
 }
 
-#p2 a:hover span {
-    text-shadow: 0 1px 1px #FFAA6E, 0 1px 2px #FF695A, 0 1px 4px #00AAA5;
+.fn a:hover span {
+    text-shadow: 0 1px 1px #FFAA6E, 0 1px 2px #FF695A, 0 1px 4px #E54286;
 }
 
-#p2 a:active {
+.fn a:active {
     transform: translateY(2px);
+}
+
+a.off {
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
+/* CSS transitions */
+
+.fn {
+    left: -2000px;
+    opacity: 0;
+    position: absolute;
+    top: -1000px;
+    transform: translateY(40px) scale3d(1.2, 1.2, 1);
+    transform-origin: left;
+    transition: opacity 500ms, transform 500ms;
+}
+
+.fn.enter {
+    opacity: 1;
+    position: static;
+    transform: translateY(0) scale3d(1, 1, 1);
+}
+
+/* Make enough space, so that the entering buttons
+ * don't cause the screen to shift.
+ */
+
+.fn.fix {
+    pointer-events: none;
+    visibility: hidden;
 }
