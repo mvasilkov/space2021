@@ -83,6 +83,8 @@ function advancePhase(toPhase) {
             for (let n = 0; n < TOTAL_INVADERS; ++n) {
                 state.invaders[n].initialize()
             }
+
+            fundsTitle.style.opacity = '1'
             break
     }
 }
