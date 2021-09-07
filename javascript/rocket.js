@@ -23,8 +23,8 @@ class Rocket {
         const ca = Math.cos(rot)
         const sa = Math.sin(rot)
 
-        const x = 1.1 * (ca * cannon.x - sa * cannon.y) + 0.5 * GAME_CANVAS_WIDTH
-        const y = 1.1 * (ca * cannon.y + sa * cannon.x) + 0.5 * GAME_CANVAS_WIDTH
+        const x = 1.09 * (ca * cannon.x - sa * cannon.y) + 0.5 * GAME_CANVAS_WIDTH
+        const y = 1.09 * (ca * cannon.y + sa * cannon.x) + 0.5 * GAME_CANVAS_WIDTH
 
         this.pos.set(x, y)
         this.lastPos.set(x, y)
@@ -74,8 +74,8 @@ class Rocket {
         // End shortest distance
 
         if (dist < ROCKET_SPEED * ROCKET_SPEED) {
-            this.job = ROCKET_MISSING
-            this.target.initialize()
+            rocketHit(this)
+            return
         }
 
         const direction = Math.atan2(
@@ -116,7 +116,6 @@ function renderRockets(rockets, con, t) {
         }
     }
 
-    con.lineWidth = 4
-    con.strokeStyle = PAL_FF6675
-    con.stroke()
+    con.fillStyle = PAL_78FAE6
+    con.fill()
 }

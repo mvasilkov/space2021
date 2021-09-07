@@ -58,6 +58,12 @@ function resetState() {
     for (let n = 0; n < TOTAL_ROCKETS; ++n) {
         state.rockets[n] = new Rocket
     }
+
+    state.debris = Array(TOTAL_DEBRIS)
+
+    for (let n = 0; n < TOTAL_DEBRIS; ++n) {
+        state.debris[n] = new Debris
+    }
 }
 
 function advancePhase(toPhase) {
@@ -92,4 +98,22 @@ function updateGlobalState() {
             ++state.progress
         }
     }
+}
+
+function rocketHit(rocket) {
+    rocket.job = ROCKET_MISSING
+
+    let allocatedDebris = 0
+
+    for (let n = 0; n < TOTAL_DEBRIS; ++n) {
+        const deb = state.debris[n]
+
+        if (deb.job === DEBRIS_MISSING) {
+            deb.initialize(rocket.target.pos.x, rocket.target.pos.y)
+
+            if (++allocatedDebris === HIT_DEBRIS) break
+        }
+    }
+
+    rocket.target.initialize()
 }

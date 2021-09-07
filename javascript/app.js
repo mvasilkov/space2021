@@ -10,6 +10,8 @@ function update() {
     updateInvaders(state.invaders)
 
     updateRockets(state.rockets)
+
+    updateDebris(state.debris)
 }
 
 function render(t) {
@@ -39,6 +41,8 @@ function render(t) {
     renderInvaders(state.invaders, cons.a, t)
 
     renderRockets(state.rockets, cons.a, t)
+
+    renderDebris(state.debris, cons.a, t)
 }
 
 function run() {
