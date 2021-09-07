@@ -33,8 +33,6 @@ const canvases = {
     a: document.getElementById('a'),
     /** Background canvas */
     b: document.getElementById('b'),
-    /** Braille tiles' canvas */
-    bt: document.getElementById('bt'),
 }
 
 const cons = {
@@ -42,15 +40,10 @@ const cons = {
     a: canvases.a.getContext('2d'),
     /** Background rendering context */
     b: canvases.b.getContext('2d'),
-    /** Braille tiles' rendering context */
-    bt: canvases.bt.getContext('2d'),
 }
 
 canvases.a.height = canvases.b.height = GAME_CANVAS_HEIGHT
 canvases.a.width = canvases.b.width = GAME_CANVAS_WIDTH
-
-canvases.bt.height = BRAILLE_CANVAS_HEIGHT
-canvases.bt.width = BRAILLE_CANVAS_WIDTH
 
 cons.a.miterLimit = 1
 
