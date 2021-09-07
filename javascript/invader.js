@@ -56,9 +56,10 @@ class Invader {
             lerp(this.lastPos.y, this.pos.y, t))
         con.rotate(lerp(this.lastAngle, this.angle, t))
 
-        con.moveTo(-10, 10)
+        con.moveTo(-8, 0)
+        con.lineTo(-12, -15)
         con.lineTo(20, 0)
-        con.lineTo(-10, -10)
+        con.lineTo(-12, 15)
         con.closePath()
 
         con.restore()
@@ -86,10 +87,6 @@ function renderInvaders(invaders, con, t) {
     con.lineWidth = 4
     con.strokeStyle = PAL_FFA5D5
     con.stroke()
-
-    // con.lineWidth = 4
-    // con.fillStyle = PAL_FFA5D5
-    // con.fill()
 }
 
 // Invader and rocket really should've inherited from the same class.
