@@ -31,8 +31,12 @@ function render(t) {
         planetOffset = (0.5 * GAME_CANVAS_WIDTH - 3 * planetSize) & 0xffe
     }
 
-    paintBraille(cons.a, planetOffset, planetOffset, PAL_78FAE6,
+    paintBraille(cons.a, planetOffset, planetOffset, state.planetColor,
         state.planet.render(), state.planet.enc)
+
+    if (state.phase === GAME_PLANET_DECAY) {
+        paintPlanetDecay(cons.a, state.planetColor, state.progress)
+    }
 
     renderDefenses(state.defenses, cons.a, t)
 

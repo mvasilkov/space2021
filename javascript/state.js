@@ -3,10 +3,8 @@
 const GAME_BEFORE_START = 0
 const GAME_STARTING = 1
 const GAME_INVADERS_ACTIVE = 2
-const GAME_DEFENSE_ACTIVE = 3
-const GAME_PLANET_DECAY = 4
-const GAME_BAD_END = 5
-const GAME_RESTARTING = 6
+const GAME_PLANET_DECAY = 3
+const GAME_BAD_END = 4
 
 const state = {}
 
@@ -34,6 +32,8 @@ function resetState() {
 
     state.planet = new Planet(Math, GAME_STARTING_PLANET_SIZE,
         GAME_STARTING_PLANET_SIZE)
+
+    state.planetColor = PAL_78FAE6
 
     state.defenses = Array(TOTAL_PLATFORMS)
 
@@ -82,6 +82,7 @@ function advancePhase(toPhase) {
 
     switch (toPhase) {
         case GAME_STARTING:
+        case GAME_PLANET_DECAY:
             state.progress = state.lastProgress = 0
             break
 
@@ -126,6 +127,23 @@ function updateGlobalState() {
         }
         else {
             ++state.progress
+        }
+    }
+    else if (state.phase === GAME_PLANET_DECAY) {
+        state.lastProgress = state.progress
+
+        if (state.progress === GAME_DECAY_TIME) {
+            state.planetColor = PAL_FF695A
+            advancePhase(GAME_BAD_END)
+        }
+        else {
+            ++state.progress
+
+            const t = state.progress / GAME_DECAY_TIME
+            if (t > 0.75) state.planetColor = PAL_FFAA6E
+            else if (t > 0.50) state.planetColor = PAL_FFE091
+            else if (t > 0.25) state.planetColor = PAL_C1D9F2
+            // else state.planetColor = PAL_78FAE6
         }
     }
 }

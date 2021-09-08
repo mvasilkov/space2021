@@ -38,9 +38,6 @@ function paintBraille(con, x0, y0, color, table, enc) {
             const char = enc(line[x])
             if (char === 0) continue
 
-            const bx = char & 0b1111
-            const by = (char >>> 4) & 0b1111
-
             drawBraillePattern(con,
                 x0 + BRAILLE_PATTERN_WIDTH * x,
                 y0 + BRAILLE_PATTERN_HEIGHT * y,
@@ -50,4 +47,31 @@ function paintBraille(con, x0, y0, color, table, enc) {
 
     con.fillStyle = color
     con.fill()
+}
+
+// Not the best place to put this function but oh well
+const DECAY_BAR_HEIGHT = 1 * BRAILLE_PATTERN_HEIGHT
+const DECAY_BAR_WIDTH = 20 * BRAILLE_PATTERN_WIDTH
+
+function paintPlanetDecay(con, color, decay) {
+    const x0 = 0.5 * GAME_CANVAS_WIDTH - 0.5 * DECAY_BAR_WIDTH
+    const y0 = 0.5 * GAME_CANVAS_HEIGHT - 0.5 * DECAY_BAR_HEIGHT
+
+    con.fillStyle = PAL_BLACK
+    con.lineWidth = BRAILLE_DOT_SIZE
+    con.strokeStyle = color
+
+    con.fillRect(x0 - 3 * BRAILLE_DOT_SIZE,
+        y0 - 3 * BRAILLE_DOT_SIZE,
+        DECAY_BAR_WIDTH + 6 * BRAILLE_DOT_SIZE,
+        DECAY_BAR_HEIGHT + 6 * BRAILLE_DOT_SIZE)
+    con.strokeRect(x0 - 1.5 * BRAILLE_DOT_SIZE,
+        y0 - 1.5 * BRAILLE_DOT_SIZE,
+        DECAY_BAR_WIDTH + 3 * BRAILLE_DOT_SIZE,
+        DECAY_BAR_HEIGHT + 3 * BRAILLE_DOT_SIZE)
+
+    con.fillStyle = color
+    con.fillRect(x0, y0,
+        DECAY_BAR_WIDTH * (GAME_DECAY_TIME - decay) / GAME_DECAY_TIME,
+        DECAY_BAR_HEIGHT)
 }
