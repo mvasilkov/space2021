@@ -69,6 +69,8 @@ function resetState() {
     for (let n = 0; n < TOTAL_DEBRIS; ++n) {
         state.debris[n] = new Debris
     }
+
+    state.toClearHeadline = 0
 }
 
 function advancePhase(toPhase) {
@@ -82,8 +84,16 @@ function advancePhase(toPhase) {
             break
 
         case GAME_INVADERS_ACTIVE:
-            actionEnter('attack')
-            actionEnter('build')
+            fundsTitle.style.opacity = '1'
+
+            setTimeout(() => {
+                newsEnter('first')
+            }, 250)
+
+            setTimeout(() => {
+                actionEnter('attack')
+                actionEnter('build')
+            }, 500)
 
             // Make sure the planet size isn't fractional, like 100.05
             state.planet.resize(GAME_PLANET_SIZE, GAME_PLANET_SIZE)
@@ -91,8 +101,6 @@ function advancePhase(toPhase) {
             for (let n = 0; n < TOTAL_INVADERS; ++n) {
                 state.invaders[n].initialize()
             }
-
-            fundsTitle.style.opacity = '1'
             break
     }
 }

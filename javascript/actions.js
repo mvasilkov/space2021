@@ -42,11 +42,13 @@ const actions = {
         }
         else return
 
-        if (plsLevel1.length === 0 && plsLevel2.length === 1) {
+        if (plsLevel1.length === 0 && plsLevel2.length === 1 &&
+            state.defenses.filter(pl => pl.job === PLATFORM_MISSING).length === 0) {
+
             actionLeave('upgrade')
         }
 
-        actionSetCost('build', state.costs.upgrade *= 2)
+        actionSetCost('upgrade', state.costs.upgrade *= 2)
 
         pls[(pls.length * Math.random()) | 0].upgrade()
     },
@@ -59,8 +61,12 @@ function initActions() {
         b.addEventListener('click', function (event) {
             event.preventDefault()
 
-            if (state.costs.hasOwnProperty(a))
-                state.funds -= state.costs[a]
+            const cost = state.costs[a]
+            if (typeof cost === 'number') {
+                if (state.funds >= cost)
+                    state.funds -= state.costs[a]
+                else return // Don't call the event handler if we couldn't afford it.
+            }
 
             actions[a](event)
         })

@@ -26,6 +26,8 @@ const TOTAL_DEBRIS = TOTAL_INVADERS * HIT_DEBRIS
 const DEBRIS_LIFE_TIME = 50
 const DEBRIS_SPEED = 5
 
+const HEADLINE_DURATION = 9000
+
 const GAME_CANVAS_HEIGHT = 1200
 const GAME_CANVAS_WIDTH = 1200
 
@@ -86,6 +88,11 @@ function actionLeave(action) {
 }
 
 function actionSetEnabled(action, enabled) {
+    if (enabled && action === 'upgrade') {
+        enabled = state.defenses.filter(pl =>
+            pl.job === PLATFORM_READY && pl.level < PLATFORM_TOP_LEVEL).length !== 0
+    }
+
     const desiredClassName = enabled ? '' : 'off'
     const x = document.getElementById('btn-' + action)
     if (x.className !== desiredClassName) x.className = desiredClassName
@@ -94,6 +101,25 @@ function actionSetEnabled(action, enabled) {
 function actionSetCost(action, cost) {
     const x = document.getElementById('c-' + action)
     x.firstChild.textContent = '' + cost
+}
+
+function newsEnter(news) {
+    const x = document.getElementById('nt-' + news)
+    if (x.className !== 'nt enter') {
+        clearTimeout(state.toClearHeadline)
+        newsLeave()
+
+        x.className = 'nt enter'
+
+        state.toClearHeadline = setTimeout(newsLeave, HEADLINE_DURATION)
+    }
+}
+
+function newsLeave() {
+    const xs = document.getElementsByClassName('nt')
+    for (let n = 0; n < xs.length; ++n) {
+        if (xs[n].className !== 'nt') xs[n].className = 'nt'
+    }
 }
 
 function nop() {

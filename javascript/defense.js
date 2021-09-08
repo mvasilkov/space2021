@@ -69,6 +69,11 @@ class DefensePl {
                 if (this.progress === PLATFORM_BUILD_TIME) {
                     this._changeJob(PLATFORM_READY, 1)
                     this.cannons[this.level - 1]._changeJob(CANNON_RELOADING)
+
+                    // Enable the capacity upgrade button
+                    if (state.defenses.filter(pl => pl.job === PLATFORM_READY).length === 2)
+                        actionEnter('upgrade')
+                    actionSetEnabled('upgrade', state.funds >= state.costs.upgrade)
                 }
                 else {
                     ++this.progress
@@ -83,6 +88,10 @@ class DefensePl {
                     this.cannons[this.level - 1]._changeJob(CANNON_RELOADING)
                     if (this.level === PLATFORM_TOP_LEVEL) {
                         this.cannons[2]._changeJob(CANNON_RELOADING)
+                    }
+                    else {
+                        // Enable the capacity upgrade button
+                        actionSetEnabled('upgrade', state.funds >= state.costs.upgrade)
                     }
                 }
                 else {

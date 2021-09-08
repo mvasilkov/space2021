@@ -32,6 +32,7 @@ canvas {
 
 #p1 {
     padding-bottom: 10px;
+    position: relative;
 }
 
 #p2 {
@@ -43,8 +44,7 @@ canvas {
 }
 
 #nu {
-    display: flex;
-    flex-direction: column-reverse;
+    overflow: hidden;
     text-transform: capitalize;
 }
 
@@ -54,10 +54,13 @@ canvas {
 
 .nt {
     background: #fff;
+    bottom: 0;
     color: #222323;
     font-size: 32px;
     font-weight: 600;
     line-height: 1.4;
+    position: absolute;
+    width: 600px;
 }
 
 .n2 {
@@ -151,6 +154,15 @@ a.off {
     opacity: 1;
     position: static;
     transform: translateY(0) scale3d(1, 1, 1);
+}
+
+.nt {
+    transition: transform 1s;
+    transform: translateY(100%);
+}
+
+.nt.enter {
+    transform: translateY(0);
 }
 
 /* Make enough space, so that the entering buttons
