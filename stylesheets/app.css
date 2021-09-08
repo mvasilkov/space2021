@@ -25,7 +25,7 @@ canvas {
     justify-content: center;
 }
 
-#p1, #a, #b, #nu {
+#p1, #a, #b, #nu, #end {
     height: 600px;
     width: 600px;
 }
@@ -39,7 +39,7 @@ canvas {
     padding: 0 10px;
 }
 
-#a, #b, #nu {
+#a, #b, #nu, #end {
     position: absolute; /* stack #a on top of #b */
 }
 
@@ -88,7 +88,7 @@ canvas {
     white-space: nowrap;
 }
 
-#doge {
+#doge, #end {
     color: #FFE091;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 1px 1px #FFAA6E, 0 2px 1px #FF695A;
@@ -172,4 +172,32 @@ a.off {
 .fn.fix {
     pointer-events: none;
     visibility: hidden;
+}
+
+/* Ending text */
+
+#end {
+    background-color: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    overflow: hidden;
+    perspective: 1400px;
+    transition: opacity 0.5s;
+}
+
+#end div {
+    display: none;
+    font-size: 32px;
+    height: 600px;
+    line-height: 1.6;
+    padding: 600px 10px 0;
+    transform: rotateX(40deg);
+    transition: padding-top 10s ease-out;
+}
+
+#end.enter {
+    opacity: 1;
+}
+
+#end.enter div {
+    padding-top: 0;
 }

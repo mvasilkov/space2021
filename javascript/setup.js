@@ -123,6 +123,15 @@ function newsLeave() {
     }
 }
 
+function endingEnter(end) {
+    const x = document.getElementById('end-' + end)
+    x.style.display = 'block'
+
+    setTimeout(() => {
+        document.getElementById('end').className = 'enter'
+    }, 100)
+}
+
 function nop() {
 }
 
