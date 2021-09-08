@@ -105,6 +105,11 @@ function advancePhase(toPhase) {
                 state.invaders[n].initialize()
             }
             break
+
+        case GAME_BAD_END:
+            actionLeave('attack')
+            actionLeave('build')
+            actionLeave('upgrade')
     }
 }
 

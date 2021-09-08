@@ -46,6 +46,22 @@ class Invader {
         }
 
         goAndWrap(this, INVADER_SPEED)
+
+        // Invaders leave.
+        if (state.phase === GAME_BAD_END) {
+            if (this.pos.x < 1 ||
+                this.pos.y < 1 ||
+                this.pos.x > GAME_CANVAS_WIDTH - 2 ||
+                this.pos.y > GAME_CANVAS_HEIGHT - 2) {
+
+                this.job = INVADER_MISSING
+
+                if (this.targeted) {
+                    const rocket = state.rockets.find(subj => subj.target === this)
+                    if (rocket !== undefined) rocket.job = ROCKET_MISSING
+                }
+            }
+        }
     }
 
     render(con, t) {
