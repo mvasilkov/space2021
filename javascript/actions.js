@@ -23,6 +23,7 @@ const actions = {
         pls = state.defenses.filter(pl => pl.job === PLATFORM_MISSING)
         if (pls.length === 0) return
         if (pls.length === 1) actionLeave('build')
+        else if (pls.length === TOTAL_PLATFORMS - 1) newsEnter('build')
 
         actionSetCost('build', state.costs.build *= 2)
 

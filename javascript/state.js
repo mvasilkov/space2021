@@ -18,6 +18,8 @@ function resetState() {
 
     state.funds = state.lastFunds = 2
 
+    state.kills = 0
+
     state.costs = {
         build: 2,
         upgrade: 8,
@@ -144,6 +146,10 @@ function rocketHit(rocket) {
     }
 
     ++state.funds
+
+    if (++state.kills === 16) {
+        newsEnter('losses')
+    }
 
     rocket.target.initialize()
 }
