@@ -44,7 +44,7 @@ const actions = {
         else return
 
         if (plsLevel1.length === 0 && plsLevel2.length === 1 &&
-            state.defenses.filter(pl => pl.job === PLATFORM_MISSING).length === 0) {
+            countBuiltDefenses() === TOTAL_PLATFORMS) {
 
             actionLeave('upgrade')
         }

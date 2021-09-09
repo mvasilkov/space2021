@@ -71,8 +71,12 @@ class DefensePl {
                     this.cannons[this.level - 1]._changeJob(CANNON_RELOADING)
 
                     // Enable the capacity upgrade button
-                    if (state.defenses.filter(pl => pl.job === PLATFORM_READY).length === 2)
+                    if (countBuiltDefenses() === 2) {
                         actionEnter('upgrade')
+                        if (document.monetization && document.monetization.state === 'started') {
+                            actionEnter('bonus')
+                        }
+                    }
                     actionSetEnabled('upgrade', state.funds >= state.costs.upgrade)
                 }
                 else {
@@ -214,4 +218,8 @@ function renderDefenses(defenses, con, t) {
     con.stroke()
 
     // con.restore() -- this happens in renderCannons
+}
+
+function countBuiltDefenses() {
+    return state.defenses.filter(pl => pl.job !== PLATFORM_MISSING).length
 }
