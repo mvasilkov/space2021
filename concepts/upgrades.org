@@ -19,3 +19,11 @@
     Fire all cannons on cooldown
 
 * Economy upgrades
+  - Universal Basic Income
+    Earn +100% money per hit
+
+  - Planned economy
+    Earn +100% money per hit
+
+  - Five-year plans
+    Earn +100% money per hit

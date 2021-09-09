@@ -53,6 +53,9 @@ const actions = {
 
         pls[(pls.length * Math.random()) | 0].upgrade()
     },
+    bonus() {
+        actionLeave('bonus')
+    },
 }
 
 function initActions() {

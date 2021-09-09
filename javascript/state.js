@@ -21,6 +21,7 @@ function resetState() {
     state.costs = {
         build: 2,
         upgrade: 8,
+        bonus: -250,
     }
 
     /** Background stars */
