@@ -21,7 +21,10 @@ function render(t) {
     let planetOffset = 0.5 * GAME_CANVAS_WIDTH - 3 *
         (state.phase === GAME_BEFORE_START ? GAME_STARTING_PLANET_SIZE : GAME_PLANET_SIZE)
 
-    if (state.phase === GAME_STARTING) {
+    if (state.phase === GAME_BEFORE_START) {
+        paintBackgroundMask(cons.a, 3 * GAME_STARTING_PLANET_SIZE)
+    }
+    else if (state.phase === GAME_STARTING) {
         const progress = lerp(state.lastProgress, state.progress, t)
         const planetSize = lerp(GAME_STARTING_PLANET_SIZE, GAME_PLANET_SIZE,
             easeOutQuad(progress / GAME_STARTING_TIME)) // & 0b11111100
@@ -29,6 +32,9 @@ function render(t) {
         state.planet.resize(planetSize, planetSize)
 
         planetOffset = (0.5 * GAME_CANVAS_WIDTH - 3 * planetSize) & 0xffe
+
+        // Paint the background only during the GAME_BEFORE_START | GAME_STARTING transition
+        paintBackgroundMask(cons.a, 3 * planetSize)
     }
 
     paintBraille(cons.a, planetOffset, planetOffset, state.planetColor,
@@ -54,7 +60,8 @@ function run() {
 
     resetState()
 
-    paintBackground(cons.b, state.stars) // the background is static, so this should not be in render()
+    paintBackground(cons.b, state.stars)
+    paintBackgroundMask(cons.b, 3 * GAME_PLANET_SIZE)
 
     startMainloop(update, render)
 }

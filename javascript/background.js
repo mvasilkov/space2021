@@ -25,3 +25,12 @@ function paintBackground(con, stars) {
         con.fillRect(star.pos.x, star.pos.y, star.power, star.power)
     }
 }
+
+function paintBackgroundMask(con, planetSize) {
+    con.beginPath()
+    con.arc(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_HEIGHT, planetSize + 20, 0, MATH_2PI)
+    con.closePath()
+
+    con.fillStyle = PAL_BLACK
+    con.fill()
+}
