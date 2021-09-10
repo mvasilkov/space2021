@@ -52,12 +52,15 @@ canvas {
     padding: 0 4px;
 }
 
+.nt, #fun, #btn-attack {
+    font-size: 32px;
+    font-weight: 600;
+}
+
 .nt {
     background: #fff;
     bottom: 0;
     color: #222323;
-    font-size: 32px;
-    font-weight: 600;
     line-height: 1.4;
     position: absolute;
     width: 600px;
@@ -77,8 +80,6 @@ canvas {
 
 #fun {
     color: #8CDAFF;
-    font-size: 32px;
-    font-weight: 600;
     line-height: 1.6;
     margin-bottom: 10px;
     opacity: 0;

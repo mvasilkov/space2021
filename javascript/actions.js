@@ -43,13 +43,13 @@ const actions = {
         }
         else return
 
-        if (plsLevel1.length === 0 && plsLevel2.length === 1 &&
-            countBuiltDefenses() === TOTAL_PLATFORMS) {
+        if (state.defenses.filter(pl =>
+            !(pl.job === PLATFORM_READY && pl.level === 4) &&
+            !(pl.job === PLATFORM_UPGRADING && pl.level === 2)).length === 1) {
 
             actionLeave('upgrade')
         }
-
-        actionSetCost('upgrade', state.costs.upgrade *= 2)
+        else actionSetCost('upgrade', state.costs.upgrade *= 2)
 
         pls[(pls.length * Math.random()) | 0].upgrade()
     },

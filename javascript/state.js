@@ -21,7 +21,7 @@ function resetState() {
     state.costs = {
         build: 2,
         upgrade: 8,
-        bonus: -250,
+        bonus: -COIL_BONUS,
     }
 
     /** Background stars */
@@ -169,9 +169,11 @@ function rocketHit(rocket) {
         }
     }
 
-    ++state.funds
+    if (++state.funds > COIL_BONUS) {
+        actionLeave('bonus')
+    }
 
-    if (++state.kills === 16) {
+    if (++state.kills === 20) {
         newsEnter('losses')
     }
 
