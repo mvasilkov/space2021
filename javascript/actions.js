@@ -56,6 +56,11 @@ const actions = {
     bonus() {
         actionLeave('bonus')
     },
+    strip() {
+        stripAllDefenses(state.defenses)
+
+        actionLeave('strip')
+    },
 }
 
 function initActions() {

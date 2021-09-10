@@ -102,12 +102,26 @@ class DefensePl {
                     ++this.progress
                 }
                 break
+
+            case PLATFORM_RECYCLING:
+                this.lastProgress = this.progress
+
+                if (this.progress === PLATFORM_RECYCLE_TIME) {
+                    this._changeJob(PLATFORM_MISSING, 0)
+                }
+                else {
+                    ++this.progress
+                }
         }
     }
 
+    getSizeLevel() {
+        return this.job === PLATFORM_UPGRADING ? 2 * this.level :
+            this.job === PLATFORM_BUILDING ? 1 : this.level
+    }
+
     render(con, t) {
-        const plSizeMul = 0.064 * (this.job === PLATFORM_UPGRADING ? 2 * this.level :
-            this.job === PLATFORM_BUILDING ? 1 : this.level) + 0.1
+        const plSizeMul = 0.064 * this.getSizeLevel() + 0.1
 
         const a0 = PLATFORM_ANGULAR_WIDTH * (this.n - plSizeMul)
         const a1 = PLATFORM_ANGULAR_WIDTH * (this.n + plSizeMul)
@@ -188,9 +202,11 @@ function renderDefenses(defenses, con, t) {
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = defenses[n]
 
-        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_UPGRADING) {
-            pl.render(con, lerp(pl.lastProgress, pl.progress, t) /
-                (pl.job === PLATFORM_BUILDING ? PLATFORM_BUILD_TIME : PLATFORM_UPGRADE_TIME))
+        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_UPGRADING || pl.job === PLATFORM_RECYCLING) {
+            const k = lerp(pl.lastProgress, pl.progress, t)
+            pl.render(con, (pl.job === PLATFORM_RECYCLING ? PLATFORM_RECYCLE_TIME - k : k) /
+                (pl.job === PLATFORM_BUILDING ? PLATFORM_BUILD_TIME :
+                    pl.job === PLATFORM_UPGRADING ? PLATFORM_UPGRADE_TIME : PLATFORM_RECYCLE_TIME))
         }
     }
 
@@ -204,7 +220,7 @@ function renderDefenses(defenses, con, t) {
     for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
         const pl = defenses[n]
 
-        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_UPGRADING) {
+        if (pl.job === PLATFORM_BUILDING || pl.job === PLATFORM_UPGRADING || pl.job === PLATFORM_RECYCLING) {
             pl.render(con, 1)
         }
     }
@@ -218,4 +234,18 @@ function renderDefenses(defenses, con, t) {
     con.stroke()
 
     // con.restore() -- this happens in renderCannons
+}
+
+function stripAllDefenses(defenses) {
+    for (let n = 0; n < TOTAL_PLATFORMS; ++n) {
+        const pl = defenses[n]
+
+        if (pl.job !== PLATFORM_MISSING) {
+            pl._changeJob(PLATFORM_RECYCLING, pl.getSizeLevel())
+
+            for (let cn = 0; cn < pl.level; ++cn) {
+                pl.cannons[cn]._changeJob(CANNON_MISSING)
+            }
+        }
+    }
 }
