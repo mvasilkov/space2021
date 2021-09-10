@@ -61,6 +61,14 @@ const actions = {
 
         actionLeave('strip')
     },
+    music() {
+        document.getElementById('btn-music').firstChild.textContent =
+            'music ' + ((state.optMusic = !state.optMusic) ? 'on' : 'off')
+    },
+    sound() {
+        document.getElementById('btn-sound').firstChild.textContent =
+            'sound ' + ((state.optSound = !state.optSound) ? 'on' : 'off')
+    },
 }
 
 function initActions() {

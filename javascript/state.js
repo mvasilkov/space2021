@@ -74,6 +74,9 @@ function resetState() {
     }
 
     state.toClearHeadline = 0
+
+    state.optMusic = true
+    state.optSound = true
 }
 
 function advancePhase(toPhase) {

@@ -139,6 +139,20 @@ a.off {
     pointer-events: none;
 }
 
+/* Options buttons */
+
+.opt {
+    display: flex;
+}
+
+.opt .fn {
+    padding-right: 10px;
+}
+
+.opt .fn a {
+    font-size: 14px;
+}
+
 /* CSS transitions */
 
 .fn {
