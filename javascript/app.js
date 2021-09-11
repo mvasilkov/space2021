@@ -1,6 +1,8 @@
 'use strict'
 
 function update() {
+    if (state.ended === true) return
+
     updateGlobalState()
 
     updateDefenses(state.defenses)
@@ -15,6 +17,8 @@ function update() {
 }
 
 function render(t) {
+    if (state.ended === true) return
+
     cons.a.clearRect(0, 0, GAME_CANVAS_WIDTH, GAME_CANVAS_WIDTH)
 
     // Resize the planet

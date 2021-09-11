@@ -79,6 +79,8 @@ function resetState() {
 
     state.optMusic = true
     state.optSound = true
+
+    state.ended = false
 }
 
 function advancePhase(toPhase) {
@@ -116,8 +118,16 @@ function advancePhase(toPhase) {
             }
             break
 
-        case GAME_BAD_END:
         case GAME_GOOD_END:
+            setTimeout(() => {
+                newsEnter('end')
+            }, 600)
+
+            setTimeout(() => {
+                endingEnter('g')
+            }, 6000)
+
+        case GAME_BAD_END:
             actionLeave('attack')
             actionLeave('build')
             actionLeave('upgrade')

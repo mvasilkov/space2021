@@ -30,7 +30,7 @@ const DEBRIS_SPEED = 5
 
 const HEADLINE_DURATION = 9000
 
-const GOOD_END_WAIT = 50_000
+const GOOD_END_WAIT = 60_000
 
 const COIL_BONUS = 200
 
@@ -129,6 +129,11 @@ function newsLeave() {
 }
 
 function endingEnter(end) {
+    state.ended = true
+
+    const nu = document.getElementById('nu')
+    nu.style.display = 'none'
+
     const x = document.getElementById('end-' + end)
     x.style.display = 'block'
 

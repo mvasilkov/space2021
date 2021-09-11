@@ -102,6 +102,18 @@ function renderInvaders(invaders, con, t) {
         }
     }
 
+    if (state.phase === GAME_GOOD_END) {
+        con.lineWidth = 8
+        con.strokeStyle = PAL_BLACK
+        con.stroke()
+
+        con.lineWidth = 4
+        con.strokeStyle = PAL_8CFF9B
+        con.stroke()
+
+        return
+    }
+
     con.lineWidth = 4
     con.strokeStyle = PAL_FFA5D5
     con.stroke()
