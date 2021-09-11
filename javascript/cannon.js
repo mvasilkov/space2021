@@ -99,7 +99,7 @@ function updateCannons(cannons) {
         }
     }
 
-    actionSetEnabled('attack', hasReady)
+    actionSetEnabled('attack', hasReady && state.phase !== GAME_BAD_END)
 }
 
 const cannonsReady = Array(TOTAL_CANNONS)

@@ -127,10 +127,16 @@ function advancePhase(toPhase) {
                 endingEnter('g')
             }, 6000)
 
-        case GAME_BAD_END:
             actionLeave('attack')
             actionLeave('build')
+            break
+
+        case GAME_BAD_END:
+            // attack stays but it's disabled
+            actionLeave('build')
             actionLeave('upgrade')
+
+            actionEnter('strip')
     }
 }
 

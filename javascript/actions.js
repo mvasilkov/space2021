@@ -5,9 +5,11 @@ const actions = {
         actionLeave('start')
         advancePhase(GAME_STARTING)
     },
-    attack(_unused, cans) {
+    attack(cans) {
         cans = state.cannons.filter(can => can.job === CANNON_READY)
         if (cans.length === 0) return
+
+        if (state.kills === 0) actionLeave('peace')
 
         const rocket = state.rockets.find(rocket =>
             rocket.job === ROCKET_MISSING)
@@ -19,7 +21,7 @@ const actions = {
             cans[(cans.length * Math.random()) | 0].attack(rocket, target)
         }
     },
-    build(_unused, pls) {
+    build(pls) {
         if (state.toGoodEnding !== 0) {
             clearTimeout(state.toGoodEnding)
             state.toGoodEnding = 0
@@ -34,7 +36,7 @@ const actions = {
 
         pls[(pls.length * Math.random()) | 0].build()
     },
-    upgrade(_unused, pls) {
+    upgrade(pls) {
         pls = state.defenses.filter(pl => pl.job === PLATFORM_READY)
 
         const plsLevel1 = pls.filter(pl => pl.level === 1)
@@ -64,6 +66,7 @@ const actions = {
     strip() {
         stripAllDefenses(state.defenses)
 
+        actionLeave('attack')
         actionLeave('strip')
     },
     peace() {
@@ -94,7 +97,7 @@ function initActions() {
                 else return // Don't call the event handler if we couldn't afford it.
             }
 
-            actions[a](event)
+            actions[a]()
         })
     }
 }
