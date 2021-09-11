@@ -142,6 +142,12 @@ function endingEnter(end) {
     nu.style.display = 'none'
 
     const x = document.getElementById('end-' + end)
+    if (end === 'b') {
+        x.firstChild.textContent = `Under your glorious leadership, a small amount of ${state.spent} billion Dogecoins were well spent on annihilating a group of ${state.kills} alien space vessels. This might not have been entirely necessary, but a victory is a victory.\n\nWritten by Mark Vasilkov for js13kGames in 2021.`
+    }
+    else {
+        x.firstChild.textContent = `Contacting the highly advanced aliens ushered humanity into a golden age of technology, which lasted until the onset of the Age of Strife in the 25th Millennium. But that's a completely different story.\n\nWritten by Mark Vasilkov for js13kGames in 2021.`
+    }
     x.style.display = 'block'
 
     setTimeout(() => {
