@@ -31,7 +31,11 @@ const actions = {
 
         pls = state.defenses.filter(pl => pl.job === PLATFORM_MISSING)
         if (pls.length === 0) return
-        if (pls.length === 1) actionLeave('build')
+        if (pls.length === 1) {
+            newsEnter('plat')
+
+            actionLeave('build')
+        }
         else if (pls.length === TOTAL_PLATFORMS - 1) newsEnter('build')
 
         actionSetCost('build', state.costs.build *= 2)
@@ -55,6 +59,8 @@ const actions = {
         if (state.defenses.filter(pl =>
             !(pl.job === PLATFORM_READY && pl.level === 4) &&
             !(pl.job === PLATFORM_UPGRADING && pl.level === 2)).length === 1) {
+
+            newsEnter('upg')
 
             actionLeave('upgrade')
         }
@@ -86,11 +92,15 @@ const actions = {
     auto1() {
         state.afEnabled = true
 
+        newsEnter('spend')
+
         actionLeave('auto1')
         actionEnter('auto2')
     },
     auto2() {
         state.afTicks *= 0.5
+
+        newsEnter('spend2')
 
         actionLeave('auto2')
         actionEnter('auto3')
@@ -98,20 +108,27 @@ const actions = {
     auto3() {
         state.afTicks *= 0.5
 
+        newsEnter('ai')
+
         actionLeave('auto3')
 
         setTimeout(() => {
+            newsEnter('decay')
             advancePhase(GAME_PLANET_DECAY)
         }, SUPREMACY_TO_DECAY_TIME)
     },
     ubi1() {
         state.revenuePerHit *= 2
 
+        newsEnter('eco')
+
         actionLeave('ubi1')
         actionEnter('ubi2')
     },
     ubi2() {
         state.revenuePerHit *= 2
+
+        newsEnter('eco2')
 
         actionLeave('ubi2')
         actionEnter('ubi3')
@@ -150,8 +167,10 @@ function initActions() {
 
             const cost = state.costs[a]
             if (typeof cost === 'number') {
-                if (state.funds >= cost)
+                if (state.funds >= cost) {
                     state.funds -= state.costs[a]
+                    state.spent += state.costs[a]
+                }
                 else return // Don't call the event handler if we couldn't afford it.
             }
 

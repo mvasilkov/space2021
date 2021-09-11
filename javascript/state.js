@@ -17,6 +17,7 @@ function resetState() {
 
     state.funds = state.lastFunds = 2
 
+    state.spent = 0
     state.kills = 0
 
     state.entered = new Set
@@ -198,9 +199,18 @@ function updateGlobalState() {
             ++state.progress
 
             const t = state.progress / GAME_DECAY_TIME
-            if (t > 0.75) state.planetColor = PAL_FFAA6E
-            else if (t > 0.50) state.planetColor = PAL_FFE091
-            else if (t > 0.25) state.planetColor = PAL_C1D9F2
+            if (t > 0.75) {
+                newsEnter('decay4')
+                state.planetColor = PAL_FFAA6E
+            }
+            else if (t > 0.50) {
+                newsEnter('decay3')
+                state.planetColor = PAL_FFE091
+            }
+            else if (t > 0.25) {
+                newsEnter('decay2')
+                state.planetColor = PAL_C1D9F2
+            }
             // else state.planetColor = PAL_78FAE6
         }
     }
@@ -227,8 +237,11 @@ function rocketHit(rocket) {
 
     enterBasedOnFunds()
 
-    if (++state.kills === 20) {
-        newsEnter('losses')
+    if (++state.kills === 24) {
+        newsEnter('loss')
+    }
+    else if (state.kills === 800) {
+        newsEnter('loss2')
     }
 
     rocket.target.initialize()
@@ -253,10 +266,10 @@ function enterBasedOnFunds() {
             if (state.entered.has('auto1')) actionEnter('auto2')
         */
 
-        case state.funds >= 100:
+        case state.funds >= 125:
             actionEnter('reload')
 
-        case state.funds >= 50:
+        case state.funds >= 44:
             actionEnter('ubi1')
 
         case state.funds >= 24:

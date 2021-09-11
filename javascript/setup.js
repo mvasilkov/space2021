@@ -114,6 +114,9 @@ function actionSetCost(action, cost) {
 }
 
 function newsEnter(news) {
+    if (state.entered.has('.' + news)) return
+    state.entered.add('.' + news)
+
     const x = document.getElementById('nt-' + news)
     if (x.className !== 'nt enter') {
         clearTimeout(state.toClearHeadline)
