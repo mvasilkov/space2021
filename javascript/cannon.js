@@ -81,17 +81,18 @@ class Cannon {
 }
 
 function updateCannons(cannons) {
-    let hasReady = false
+    let countReady = 0
 
     for (let n = 0; n < TOTAL_CANNONS; ++n) {
         const can = cannons[n]
 
-        if (can.job === CANNON_READY) hasReady = true
+        if (can.job === CANNON_READY) ++countReady
         else if (can.job === CANNON_RELOADING) {
             can.lastProgress = can.progress
 
             if (can.progress >= state.reloadTime) {
                 can._changeJob(CANNON_READY)
+                ++countReady
             }
             else {
                 ++can.progress
@@ -99,7 +100,19 @@ function updateCannons(cannons) {
         }
     }
 
-    actionSetEnabled('attack', hasReady && state.phase !== GAME_BAD_END)
+    // Auto-fire
+    if (state.afEnabled && state.phase !== GAME_BAD_END) {
+        if (state.afProgress >= state.afTicks) {
+            // Don't reset progress if we could not fire
+            if ((countReady = actions.attack() - 1) !== -1)
+                state.afProgress = 1
+        }
+        else {
+            ++state.afProgress
+        }
+    }
+
+    actionSetEnabled('attack', countReady > 0 && state.phase !== GAME_BAD_END)
 }
 
 const cannonsReady = Array(TOTAL_CANNONS)

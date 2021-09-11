@@ -7,7 +7,7 @@ const actions = {
     },
     attack(cans) {
         cans = state.cannons.filter(can => can.job === CANNON_READY)
-        if (cans.length === 0) return
+        if (cans.length === 0) return 0
 
         if (state.kills === 0) actionLeave('peace')
 
@@ -20,6 +20,8 @@ const actions = {
         if (rocket !== undefined && target !== undefined) {
             cans[(cans.length * Math.random()) | 0].attack(rocket, target)
         }
+
+        return cans.length
     },
     build(pls) {
         if (state.toGoodEnding !== 0) {
@@ -62,6 +64,7 @@ const actions = {
     },
     bonus() {
         actionLeave('bonus')
+        enterBasedOnFunds()
     },
     speed() {
         state.rocketSpeed *= 1.2
@@ -79,6 +82,44 @@ const actions = {
         }
 
         actionLeave('reload')
+    },
+    auto1() {
+        state.afEnabled = true
+
+        actionLeave('auto1')
+        actionEnter('auto2')
+    },
+    auto2() {
+        state.afTicks *= 0.5
+
+        actionLeave('auto2')
+        actionEnter('auto3')
+    },
+    auto3() {
+        state.afTicks *= 0.5
+
+        actionLeave('auto3')
+
+        setTimeout(() => {
+            advancePhase(GAME_PLANET_DECAY)
+        }, SUPREMACY_TO_DECAY_TIME)
+    },
+    ubi1() {
+        state.revenuePerHit *= 2
+
+        actionLeave('ubi1')
+        actionEnter('ubi2')
+    },
+    ubi2() {
+        state.revenuePerHit *= 2
+
+        actionLeave('ubi2')
+        actionEnter('ubi3')
+    },
+    ubi3() {
+        state.revenuePerHit *= 2
+
+        actionLeave('ubi3')
     },
     strip() {
         stripAllDefenses(state.defenses)

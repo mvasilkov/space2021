@@ -30,6 +30,7 @@ canvas {
 }
 
 a {
+    cursor: default;
     touch-action: manipulation;
 }
 

@@ -27,6 +27,12 @@ function resetState() {
         bonus: -COIL_BONUS,
         speed: 25,
         reload: 250,
+        auto1: 48,
+        auto2: 300,
+        auto3: 500,
+        ubi1: 100,
+        ubi2: 666,
+        ubi3: 900,
         peace: 2,
     }
 
@@ -86,6 +92,12 @@ function resetState() {
 
     state.rocketSpeed = ROCKET_SPEED
     state.reloadTime = CANNON_RELOAD_TIME
+    state.revenuePerHit = 1
+
+    // Auto-fire
+    state.afEnabled = false
+    state.afTicks = 12
+    state.afProgress = 0
 
     state.ended = false
 }
@@ -145,6 +157,10 @@ function advancePhase(toPhase) {
             actionLeave('bonus')
             actionLeave('speed')
             actionLeave('reload')
+            // no auto{1,2,3} as they're required for bad end anyway
+            actionLeave('ubi1')
+            actionLeave('ubi2')
+            actionLeave('ubi3')
 
             actionEnter('strip')
     }
@@ -205,17 +221,45 @@ function rocketHit(rocket) {
         }
     }
 
-    if (++state.funds > COIL_BONUS) {
+    if ((state.funds += state.revenuePerHit) > COIL_BONUS) {
         actionLeave('bonus')
     }
 
-    if (state.funds >= 200) {
-        if (state.entered.has('speed')) actionEnter('reload')
-    }
+    enterBasedOnFunds()
 
     if (++state.kills === 20) {
         newsEnter('losses')
     }
 
     rocket.target.initialize()
+}
+
+function enterBasedOnFunds() {
+    // After the player upgraded capacity at least once
+    if (!state.entered.has('speed')) return
+
+    switch (true) {
+        /*
+        case state.funds >= 600:
+            if (state.entered.has('ubi2')) actionEnter('ubi3')
+
+        case state.funds >= 444:
+            if (state.entered.has('ubi1')) actionEnter('ubi2')
+
+        case state.funds >= 400:
+            if (state.entered.has('auto2')) actionEnter('auto3')
+
+        case state.funds >= 200:
+            if (state.entered.has('auto1')) actionEnter('auto2')
+        */
+
+        case state.funds >= 100:
+            actionEnter('reload')
+
+        case state.funds >= 50:
+            actionEnter('ubi1')
+
+        case state.funds >= 24:
+            actionEnter('auto1')
+    }
 }
