@@ -20,6 +20,11 @@ const actions = {
         }
     },
     build(_unused, pls) {
+        if (state.toGoodEnding !== 0) {
+            clearTimeout(state.toGoodEnding)
+            state.toGoodEnding = 0
+        }
+
         pls = state.defenses.filter(pl => pl.job === PLATFORM_MISSING)
         if (pls.length === 0) return
         if (pls.length === 1) actionLeave('build')
@@ -60,6 +65,10 @@ const actions = {
         stripAllDefenses(state.defenses)
 
         actionLeave('strip')
+    },
+    peace() {
+        actionLeave('peace')
+        advancePhase(GAME_GOOD_END)
     },
     music() {
         document.getElementById('btn-music').firstChild.textContent =

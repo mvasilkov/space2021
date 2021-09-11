@@ -5,6 +5,7 @@ const GAME_STARTING = 1
 const GAME_INVADERS_ACTIVE = 2
 const GAME_PLANET_DECAY = 3
 const GAME_BAD_END = 4
+const GAME_GOOD_END = 5
 
 const state = {}
 
@@ -22,6 +23,7 @@ function resetState() {
         build: 2,
         upgrade: 8,
         bonus: -COIL_BONUS,
+        peace: 2,
     }
 
     /** Background stars */
@@ -73,18 +75,17 @@ function resetState() {
         state.debris[n] = new Debris
     }
 
-    state.toClearHeadline = 0
+    state.toClearHeadline = state.toGoodEnding = 0
 
     state.optMusic = true
     state.optSound = true
 }
 
 function advancePhase(toPhase) {
-    if (state.phase !== toPhase - 1) return
+    if (state.phase !== toPhase - 1 &&
+        (state.phase !== GAME_INVADERS_ACTIVE || toPhase !== GAME_GOOD_END)) return
 
-    state.phase = toPhase
-
-    switch (toPhase) {
+    switch (state.phase = toPhase) {
         case GAME_STARTING:
         case GAME_PLANET_DECAY:
             state.progress = state.lastProgress = 0
@@ -102,6 +103,11 @@ function advancePhase(toPhase) {
                 actionEnter('build')
             }, 500)
 
+            state.toGoodEnding = setTimeout(() => {
+                actionEnter('peace')
+                state.toGoodEnding = 0
+            }, GOOD_END_WAIT)
+
             // Make sure the planet size isn't fractional, like 100.05
             state.planet.resize(GAME_PLANET_SIZE, GAME_PLANET_SIZE)
 
@@ -111,6 +117,7 @@ function advancePhase(toPhase) {
             break
 
         case GAME_BAD_END:
+        case GAME_GOOD_END:
             actionLeave('attack')
             actionLeave('build')
             actionLeave('upgrade')

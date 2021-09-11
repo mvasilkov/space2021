@@ -3,7 +3,7 @@ Review files:
 
 - [x] actions.js
 - [x] app.js
-- [x] background.js                 Don't render stars under the planet.
+- [x] background.js
 - [x] braille.js
 - [ ] cannon.js
 - [ ] defense.js
@@ -19,5 +19,4 @@ Review files:
 - [x] state.js
 
 - [ ] index.html
-- [x] app.css                       Make enough space, so that entering buttons
-                                    don't cause the screen to shift.
+- [x] app.css

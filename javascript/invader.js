@@ -30,7 +30,9 @@ class Invader {
         this.lastPos.copy(this.pos)
         this.lastAngle = this.angle
 
-        if (this.pos.distanceSquared(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_WIDTH) < 2e5) {
+        if (state.phase !== GAME_GOOD_END &&
+            this.pos.distanceSquared(0.5 * GAME_CANVAS_WIDTH, 0.5 * GAME_CANVAS_WIDTH) < 2e5) {
+
             // Avoid planet
             const desiredAngle = Math.atan2(
                 this.pos.y - 0.5 * GAME_CANVAS_HEIGHT,
