@@ -94,10 +94,7 @@ class DefensePl {
                         this.cannons[2]._changeJob(CANNON_RELOADING)
                     }
                     else {
-                        if (!state.reachedSpeed) {
-                            actionEnter('speed')
-                            state.reachedSpeed = true
-                        }
+                        actionEnter('speed')
 
                         // Enable the capacity upgrade button
                         actionSetEnabled('upgrade', state.funds >= state.costs.upgrade)

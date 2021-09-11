@@ -84,6 +84,9 @@ function easeInOutQuad(t) {
 }
 
 function actionEnter(action) {
+    if (state.entered.has(action)) return
+    state.entered.add(action)
+
     const x = document.getElementById('fn-' + action)
     if (x.className !== 'fn enter') x.className = 'fn enter'
 }

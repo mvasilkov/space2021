@@ -19,6 +19,8 @@ function resetState() {
 
     state.kills = 0
 
+    state.entered = new Set
+
     state.costs = {
         build: 2,
         upgrade: 8,
@@ -84,9 +86,6 @@ function resetState() {
 
     state.rocketSpeed = ROCKET_SPEED
     state.reloadTime = CANNON_RELOAD_TIME
-
-    state.reachedSpeed = false
-    state.reachedReload = false
 
     state.ended = false
 }
@@ -208,6 +207,10 @@ function rocketHit(rocket) {
 
     if (++state.funds > COIL_BONUS) {
         actionLeave('bonus')
+    }
+
+    if (state.funds >= 200) {
+        if (state.entered.has('speed')) actionEnter('reload')
     }
 
     if (++state.kills === 20) {
