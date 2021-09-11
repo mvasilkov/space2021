@@ -63,6 +63,23 @@ const actions = {
     bonus() {
         actionLeave('bonus')
     },
+    speed() {
+        state.rocketSpeed *= 1.2
+
+        actionLeave('speed')
+    },
+    reload() {
+        state.reloadTime *= 0.8
+
+        for (let n = 0; n < state.cannons.length; ++n) {
+            const can = state.cannons[n]
+            if (can.job === CANNON_RELOADING && can.progress > state.reloadTime) {
+                can.progress = can.lastProgress = state.reloadTime
+            }
+        }
+
+        actionLeave('reload')
+    },
     strip() {
         stripAllDefenses(state.defenses)
 

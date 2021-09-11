@@ -73,7 +73,7 @@ class Rocket {
 
         // End shortest distance
 
-        if (dist < ROCKET_SPEED * ROCKET_SPEED) {
+        if (dist < state.rocketSpeed ** 2) {
             rocketHit(this)
             return
         }
@@ -87,7 +87,7 @@ class Rocket {
 
         this.angle += difference > 0 ? -INVADER_STEERING : INVADER_STEERING
 
-        goAndWrap(this, ROCKET_SPEED)
+        goAndWrap(this, state.rocketSpeed)
     }
 
     render(con, t) {

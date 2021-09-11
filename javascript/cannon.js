@@ -90,7 +90,7 @@ function updateCannons(cannons) {
         else if (can.job === CANNON_RELOADING) {
             can.lastProgress = can.progress
 
-            if (can.progress === CANNON_RELOAD_TIME) {
+            if (can.progress >= state.reloadTime) {
                 can._changeJob(CANNON_READY)
             }
             else {
@@ -159,7 +159,7 @@ function renderCannons(defenses, con, t) {
     for (let n = 0; n < countReloading; ++n) {
         const can = cannonsReloading[n]
 
-        can.render2(con, lerp(can.lastProgress, can.progress, t) / CANNON_RELOAD_TIME)
+        can.render2(con, lerp(can.lastProgress, can.progress, t) / state.reloadTime)
     }
 
     con.lineWidth = 4

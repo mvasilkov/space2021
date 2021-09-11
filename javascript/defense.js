@@ -94,6 +94,11 @@ class DefensePl {
                         this.cannons[2]._changeJob(CANNON_RELOADING)
                     }
                     else {
+                        if (!state.reachedSpeed) {
+                            actionEnter('speed')
+                            state.reachedSpeed = true
+                        }
+
                         // Enable the capacity upgrade button
                         actionSetEnabled('upgrade', state.funds >= state.costs.upgrade)
                     }
@@ -108,6 +113,13 @@ class DefensePl {
 
                 if (this.progress === PLATFORM_RECYCLE_TIME) {
                     this._changeJob(PLATFORM_MISSING, 0)
+
+                    // Trigger the bad ending, if not triggered already
+                    if (state.toBadEnding === 0) {
+                        state.toBadEnding = setTimeout(() => {
+                            endingEnter('b')
+                        }, 600)
+                    }
                 }
                 else {
                     ++this.progress

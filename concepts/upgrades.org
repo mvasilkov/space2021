@@ -1,9 +1,9 @@
 * Upgrades
   - Superfluid ion thrusters
-    Rockets accelerate 2x faster
+    Rockets travel 20% faster
 
   - Muzzle booster reloading
-    Cannons reload 2x faster
+    Cannons reload 20% faster
 
 * Auto-fire upgrades
   - Cybernetic command
@@ -20,10 +20,10 @@
 
 * Economy upgrades
   - Universal Basic Income
-    Earn +100% money per hit
+    Earn 100% more per hit
 
   - Planned economy
-    Earn +100% money per hit
+    Earn 100% more per hit
 
   - Five-year plans
-    Earn +100% money per hit
+    Earn 100% more per hit

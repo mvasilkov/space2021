@@ -23,6 +23,8 @@ function resetState() {
         build: 2,
         upgrade: 8,
         bonus: -COIL_BONUS,
+        speed: 25,
+        reload: 250,
         peace: 2,
     }
 
@@ -75,10 +77,16 @@ function resetState() {
         state.debris[n] = new Debris
     }
 
-    state.toClearHeadline = state.toGoodEnding = 0
+    state.toClearHeadline = state.toGoodEnding = state.toBadEnding = 0
 
     state.optMusic = true
     state.optSound = true
+
+    state.rocketSpeed = ROCKET_SPEED
+    state.reloadTime = CANNON_RELOAD_TIME
+
+    state.reachedSpeed = false
+    state.reachedReload = false
 
     state.ended = false
 }
@@ -135,6 +143,9 @@ function advancePhase(toPhase) {
             // attack stays but it's disabled
             actionLeave('build')
             actionLeave('upgrade')
+            actionLeave('bonus')
+            actionLeave('speed')
+            actionLeave('reload')
 
             actionEnter('strip')
     }
