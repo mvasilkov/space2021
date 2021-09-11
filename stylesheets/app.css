@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+* {
+    touch-action: manipulation;
+}
+
 /* 1bit Monitor Glow palette
  * https://lospec.com/palette-list/1bit-monitor-glow
  *
@@ -11,10 +15,22 @@ body {
     background: #222323;
     font-family: -apple-system, 'Segoe UI', 'DejaVu Sans', system-ui, sans-serif;
     margin: 1vw;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+canvas, a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-drag: none;
 }
 
 canvas {
     display: block;
+}
+
+a {
+    touch-action: manipulation;
 }
 
 /* Page layout */
