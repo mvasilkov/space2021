@@ -182,4 +182,15 @@ function initActions() {
             actions[a]()
         })
     }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === ' ' || event.code === 'Space' || event.keyCode === 32) {
+            event.preventDefault()
+
+            if (!event.repeat && state.entered.has('attack')) {
+                const x = document.getElementById('btn-attack')
+                if (x.className === '') actions.attack()
+            }
+        }
+    })
 }
