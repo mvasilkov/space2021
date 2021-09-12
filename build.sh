@@ -3,7 +3,7 @@
 rm -rf build
 mkdir -p build
 
-npx html-minifier --collapse-whitespace --remove-attribute-quotes \
+npx html-minifier --preserve-line-breaks --remove-attribute-quotes \
     -o build/index.html index_build.html
 
 npx cleancss -O1 -o build/app.css stylesheets/app.css
