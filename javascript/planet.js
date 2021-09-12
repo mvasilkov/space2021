@@ -60,8 +60,8 @@ const Planet = function () {
             simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
             simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
             simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
-            simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
-            simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
+            // simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
+            // simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5) +
             simplex.noise3D(x * (freq *= 2), y * freq, z * freq) * (amp *= .5)
 
         const texture = (u, v, w) =>
