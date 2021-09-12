@@ -151,6 +151,7 @@ const actions = {
     music() {
         document.getElementById('btn-music').firstChild.textContent =
             'music ' + ((state.optMusic = !state.optMusic) ? 'on' : 'off')
+        out.gain.value = state.optMusic ? 0.4 : 0
     },
     sound() {
         document.getElementById('btn-sound').firstChild.textContent =
@@ -163,7 +164,11 @@ function initActions() {
         const b = document.getElementById('btn-' + a)
 
         b.addEventListener('click', function (event) {
+            // event.stopImmediatePropagation()
             event.preventDefault()
+
+            if (a === 'start') initializeAudio()
+            else if (a !== 'attack' && a !== 'music' && a !== 'sound') sound(sndButton)
 
             const cost = state.costs[a]
             if (typeof cost === 'number') {

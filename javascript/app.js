@@ -65,26 +65,6 @@ function run() {
         event.preventDefault()
     })
 
-    const preventDoubleTapZoom = (delay) => {
-        let beforeLastTouchStart = 0
-        let lastTouchStart = 0
-        document.addEventListener('touchstart', () => {
-            beforeLastTouchStart = lastTouchStart
-            lastTouchStart = Date.now()
-        })
-        document.addEventListener('touchend', (event) => {
-            const touchEnd = Date.now()
-            if (touchEnd - beforeLastTouchStart < delay) {
-                event.preventDefault()
-            }
-            const target = event.target
-            if (target && target.click) {
-                target.click()
-            }
-        })
-    }
-    preventDoubleTapZoom(400)
-
     // Initialization
     initActions()
 

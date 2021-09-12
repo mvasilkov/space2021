@@ -125,6 +125,9 @@ function newsEnter(news) {
         x.className = 'nt enter'
 
         state.toClearHeadline = setTimeout(newsLeave, HEADLINE_DURATION)
+
+        if (news.indexOf('decay') === 0) sound(sndBad)
+        else sound(sndNews)
     }
 }
 
@@ -152,6 +155,8 @@ function endingEnter(end) {
 
     setTimeout(() => {
         document.getElementById('end').className = 'enter'
+
+        sound(sndEnd)
     }, 100)
 }
 
@@ -164,4 +169,53 @@ function wrapInc(val, start, end) {
 
 function wrapAngleInc(val) {
     return val < -Math.PI ? MATH_2PI : val >= Math.PI ? -MATH_2PI : 0
+}
+
+// Play a sound.
+function sound(snd) {
+    if (!state.optSound) return
+    try {
+        if (snd.buf === null) {
+            snd.buf = ac.createBuffer(1, snd.raw.length, zzfxR)
+            snd.buf.getChannelData(0).set(snd.raw)
+        }
+        const bufs = ac.createBufferSource()
+        bufs.buffer = snd.buf
+        bufs.connect(ac.destination)
+        bufs.start()
+    }
+    catch (err) {
+    }
+}
+
+const sndButton = {
+    raw: zzfxMicro.apply(null, [, , 417, , .01, .01, , .94, -0.1, 2.5, -9, , , , , , , , .07, .01]),
+    buf: null,
+}
+
+const sndNews = {
+    raw: zzfxMicro.apply(null, [, , 345, .01, .17, .87, 1, 1.05, .2, , 67, .03, .02, , -0.2, , , .79, , .04]),
+    buf: null,
+}
+
+const sndBad = {
+    raw: zzfxMicro.apply(null, [, , 382, , , .48, 2, .35, -0.6, , , , , , , , .2, .72, .09]),
+    buf: null,
+}
+
+const sndEnd = {
+    raw: zzfxMicro.apply(null, [1.65, , 348, .09, .37, .29, 2, 1.3, 4, -5.5, 182, .1, .1, .1, , , .13, .88, .04, .28]),
+    buf: null,
+}
+
+let audioInitialized = false
+
+// Initialize audio.
+function initializeAudio() {
+    try {
+        audioInit().then(playLoop)
+    }
+    catch (err) {
+    }
+    audioInitialized = true
 }

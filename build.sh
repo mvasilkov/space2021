@@ -15,6 +15,6 @@ npx terser --enclose --compress --mangle -o build/app.js \
     javascript/defense.js javascript/invader.js javascript/rocket.js \
     javascript/state.js javascript/actions.js javascript/app.js
 
-# python3 -c "import json; from pathlib import Path; "\
-# "obj = json.loads(Path('manifest.json').read_text(encoding='utf-8')); "\
-# "Path('build/manifest.json').write_text(json.dumps(obj, separators=(',', ':')), encoding='utf-8')"
+python3 -c "import json; from pathlib import Path; "\
+"obj = json.loads(Path('manifest.json').read_text(encoding='utf-8')); "\
+"Path('build/manifest.json').write_text(json.dumps(obj, separators=(',', ':')), encoding='utf-8')"
