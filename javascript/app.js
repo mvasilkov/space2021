@@ -60,6 +60,9 @@ function render(t) {
 }
 
 function run() {
+    actionSetEnabled('music', false)
+    actionSetEnabled('sound', false)
+
     // Prevent unwanted browser features
     document.body.addEventListener('contextmenu', event => {
         event.preventDefault()

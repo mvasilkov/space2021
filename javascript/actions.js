@@ -167,7 +167,11 @@ function initActions() {
             // event.stopImmediatePropagation()
             event.preventDefault()
 
-            if (a === 'start') initializeAudio()
+            if (a === 'start') {
+                initializeAudio()
+                actionSetEnabled('music', true)
+                actionSetEnabled('sound', true)
+            }
             else if (a !== 'attack' && a !== 'music' && a !== 'sound') sound(sndButton)
 
             const cost = state.costs[a]
